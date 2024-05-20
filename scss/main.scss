@@ -2,3 +2,20 @@
 @import 'custom';
 
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+
+footer {
+    padding: 15px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: $secondary;
+}
+
+.main {
+    margin-bottom: 415px;
+}
