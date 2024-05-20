@@ -6,30 +6,106 @@
         <div class="row mb-5 text-dark d-flex justify-content-center align-items-center ">
             <img class="col-6 " src="/images/visiteGuide.jpg" alt=""> 
             <div class="text-justify text-center fw-bold col-6 fs-5  "> 
+                <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#EditionService">Modifier</button>
+                <div class="action-service-btn">
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#EditionService"><i class="bi bi-pencil-square"></i></button>
                 <h2 class="mb-4">VISITE GUIDÉ (GRATUIT)</h2>    
+                <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#DeleteService"><i class="bi bi-trash3"></i></button></div>  
+
                  <p>Si vous ne savez pas par où commencer, des guides sont présents pour vous accompagner durant toute votre journée et de vous faire partager leurs connaissances et leurs passions</p>
                 <p>Pour bénéficier de ce service, vous pouvez nous <a href="/contact" class="fs-5">contacter</a> où en faire la demande en arrivant à l'accueil d'ARCADIA</p>
                 </div>  
+            </div>  
         </div>
     <!-- information sur la restauration -->
         <div class="row mb-5 text-dark d-flex justify-content-center align-items-center">
             <img class="col-6" src="/images/restauration.jpg" alt=""> 
             <div class="text-justify text-center fw-bold col-6 fs-5 "> 
-                <h2 class="mb-4">RESTAURATIONS</h2>    
-                <H1 class="text-warning">DONNEE POUVANT ETRE MODIFIE PAR L'ADMIN</H1>
-                 <p>Si vous ne savez pas par où commencer, des guides sont présents pour vous accompagner durant toute votre journée et de vous faire partager leurs connaissances et leurs passions</p>
+                <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#EditionService">Modifier</button>
+                <div class="action-service-btn">
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#EditionService"><i class="bi bi-pencil-square"></i></button>
+                        <h2 class="mb-4">RESTAURATIONS</h2>    
+                            <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#DeleteService"><i class="bi bi-trash3"></i></button></div>  
+                         <H1 class="text-warning">DONNEE POUVANT ETRE MODIFIE PAR L'ADMIN</H1>
+                         <p>Si vous ne savez pas par où commencer, des guides sont présents pour vous accompagner durant toute votre journée et de vous faire partager leurs connaissances et leurs passions</p>
+
                 </div>  
         </div>
 
             <!-- information sur les visites en train -->
             <div class="row mb-5 text-dark d-flex justify-content-center align-items-center">
                 <img class="col-6" src="/images/train.jpg" alt=""> 
-                <div class="text-justify text-center fw-bold col-6 fs-5 "> 
+                <div class="text-justify text-center fw-bold col-6 fs-5 ">
+                    
+                    <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#EditionService">Modifier</button> 
+                    <div class="action-service-btn">
+                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#EditionService"><i class="bi bi-pencil-square"></i></button>
                     <h2 class="mb-4">VISITE EN TRAIN</h2>    
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#DeleteService"><i class="bi bi-trash3 "></i></button></div>  
+
                     <H1 class="text-warning">DONNEE POUVANT ETRE MODIFIE PAR L'ADMIN</H1>
                      <p>Si vous ne savez pas par où commencer, des guides sont présents pour vous accompagner durant toute votre journée et de vous faire partager leurs connaissances et leurs passions</p>
                     </div>  
             </div>
+        </div>  
         
     </div>
 </div>
+
+
+
+
+<!-- Modal edition-->
+<div class="modal fade" id="EditionService" tabindex="-1" aria-labelledby="EditionService" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="EditionService">Modification</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="container">
+                <div class="mb-3">
+                  <label for="title" class="form-label"> <h2 class="mb-4"></h2>Titre</label>
+                  <input type="text" class="form-control" id="title" aria-describedby="title" placeholder="Visite guidé / Restauration / Visite train...">
+        
+                </div>
+                <div class="mb-3">
+                  <label for="textDescription" class="form-label">Description</label>
+                  <input type="text-area" class="form-control" id="textDescription" placeholder="Profitez des différents services....">
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary">Modifier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal de suppression-->
+
+<div class="modal fade" id="DeleteService" tabindex="-1" aria-labelledby="DeleteService" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5 " id="DeleteService">Etes-vous sûr de supprimer ce service ? </h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="container">
+                <div class="mb-3">
+                  <label for="title" class="form-label"> <h2 class="mb-4">
+                    <H1 class="text-warning">DONNEE POUVANT ETRE MODIFIE PAR L'ADMIN</H1>
+                    <p>Si vous ne savez pas par où commencer, des guides sont présents pour vous accompagner durant toute votre journée et de vous faire partager leurs connaissances et leurs passions</p>
+
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-danger">SUPPRIMER</button>
+        </div>
+      </div>
+    </div>
+  </div>

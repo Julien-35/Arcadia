@@ -19,3 +19,15 @@ footer {
 .main {
     margin-bottom: 415px;
 }
+
+.action-service-btn {
+    display: flex;
+    justify-content: space-around;
+}
+
+.bi-pencil-square,
+.bi-trash3 {
+    color: $primary;
+    opacity: 1;
+
+}
