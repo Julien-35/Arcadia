@@ -11992,4 +11992,9 @@ footer {
 .bi-trash3 {
   color: #A4B97E;
   opacity: 1;
+}
+
+.SendContact {
+  display: flex;
+  justify-content: center;
 }/*# sourceMappingURL=main.css.map */
