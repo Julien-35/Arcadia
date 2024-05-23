@@ -9,15 +9,19 @@ InputEmail.addEventListener("keyup", validateForm);
 InputPassword.addEventListener("keyup", validateForm);
 btnConnexion.addEventListener("click", CheckCredentials);
 
+
+
 function CheckCredentials() {
     //Ici on appellera l'API pour vérifier les credenrtials en BDD;
     if (InputEmail.value == "test@mail.com" && InputPassword.value == "Azerty12!") {
-        alert ("Mot de passe correcte");
+
 
         // Il faudra appeler notre API ici.
         const token ="fezfezfzefzefzef"
-        // Placer le token en cookie
-
+        // Placer le token en cookie 
+        setToken(token);
+        // roleCookieName est la variable dans le script. 
+        setCookie(roleCookieName, "admin", 7);
         // si la connexion est correcte, window.location.replace me renvoi sur la page choisi en route.
         window.location.replace ("/home");
     } else {
@@ -88,3 +92,11 @@ function validateRequire (input){
     }
 }
 
+
+/* 
+Disconnected
+Connected 
+-admin
+-vétérinaire
+-employé)
+*/
