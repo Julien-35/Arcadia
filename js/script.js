@@ -72,11 +72,11 @@ function isConnected(){
 }
 
 // permet de tester si mon cookie fonctionne en affichant des alertes 
-if(isConnected()) {
+/*if(isConnected()) {
     alert ("je suis connecté");
 } else {
     alert("je ne suis pas connecté");
-}
+}*/
 
 // Création d'une fonction pour afficher ou non le bouton connexion et ou deconnexion 
 function showAndHideElementsForRoles(){
