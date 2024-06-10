@@ -1,15 +1,15 @@
-<form class="container text-dark fs-4">
+<form class="container text-dark fs-4" id="signinForm">
     <div class="m-5">
       <label for="EmailInput" class="form-label"  >Adresse mail</label>
-      <input type="email" class="form-control" id="EmailInput" placeholder="zoo@arcadia.com">
+      <input type="email" class="form-control" id="EmailInput" placeholder="zoo@arcadia.com" name="email">
       <!--Selon le Regex du JS, permet de retourner un message tant que le mail n'est pas adéquate.-->
       <div class="invalid-feedback">
         Le mail ne fonctionne pas</div>
     </div>
 
     <div class="m-5">
-      <label for="MdpInput" class="form-label">Mot de passe</label>
-      <input type="password" class="form-control" id="MdpInput" placeholder="Votre mot de passe">
+      <label for="password" class="form-label">Mot de passe</label>
+      <input type="password" class="form-control" id="password" placeholder="Votre mot de passe" name="password">
       <!-- Permet de rajouter un texte tant que les conditions du Regex ne sont pas bonne-->
       <div class="invalid-feedback">Mot de passe non robuste</div>
     </div>

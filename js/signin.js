@@ -1,9 +1,9 @@
 //Vérifier un champs requis passe en vert ou en rouge si rempli ou non
 
 const InputEmail = document.getElementById ("EmailInput");
-const InputPassword = document.getElementById ("MdpInput");
+const InputPassword = document.getElementById ("password");
 const btnConnexion = document.getElementById ("btnconnexion");
-
+const SigninForm = document.getElementById ("signinForm");
 
 InputEmail.addEventListener("keyup", validateForm);
 InputPassword.addEventListener("keyup", validateForm);
@@ -12,23 +12,33 @@ btnConnexion.addEventListener("click", CheckCredentials);
 
 
 function CheckCredentials() {
-    //Ici on appellera l'API pour vérifier les credenrtials en BDD;
-    if (InputEmail.value == "test@mail.com" && InputPassword.value == "Azerty12!") {
-
-
-        // Il faudra appeler notre API ici.
-        const token ="fezfezfzefzefzef"
-        // Placer le token en cookie 
+    let dataForm = new FormData(SigninForm);
+    
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    let raw = JSON.stringify({
+        "username": dataForm.get("email"),
+        "password": dataForm.get("password")
+    });
+    let requestOptions = {
+        mode:  'no-cors', 
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+    fetch("http://127.0.0.1:8000/api/login", requestOptions)
+    .then((response) => response.text())
+    .then(result => {
+        const token = result.apiToken;
         setToken(token);
-        // roleCookieName est la variable dans le script. 
-        setCookie(roleCookieName, "admin", 7);
-        // si la connexion est correcte, window.location.replace me renvoi sur la page choisi en route.
-        window.location.replace ("/home");
-    } else {
-        InputEmail.classList.add ("is-invalid");
-        InputPassword.classList.add ("id-invalid");
-    }
+        setCookie(roleCookieName, result.roles[0], 7);
+
+        window.location.replace("/admin");
+    })
+    .catch((error) => console.error(error));
 }
+
 
 //fonction pour valider le formulaire de connexion
 function validateForm(){
