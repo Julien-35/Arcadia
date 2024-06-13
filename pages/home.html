@@ -49,10 +49,66 @@
 
         <div class="text-warning position-relative avis">
             <h3 class="m-4 ">Les avis des visiteurs</h3>
+            <div id="ajoutAvis">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae voluptatem error, voluptatibus, dignissimos assumenda, et repellat nemo vel praesentium omnis culpa quo. Dolorem vero, culpa exercitationem sed soluta labore consectetur.</p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae voluptatem error, voluptatibus, dignissimos assumenda, et repellat nemo vel praesentium omnis culpa quo. Dolorem vero, culpa exercitationem sed soluta labore consectetur.</p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae voluptatem error, voluptatibus, dignissimos assumenda, et repellat nemo vel praesentium omnis culpa quo. Dolorem vero, culpa exercitationem sed soluta labore consectetur.</p>
-            <button class="btn btn-primary m-5">Laissez votre avis</button>
+        </div>
+
+        <button type="button" class="btn btn-primary m-5" data-bs-toggle="modal" data-bs-target="#EditionService" >Modifier</button>
         </div>
         
 </div>
+
+
+
+
+<div>
+  <form class="container"  id="FormulaireAvis">
+    <div class="mb-3">
+      <label for="title" class="form-label"> 
+        <h2 class="mb-4"type="string">Votre Pseudo</h2></label>
+      <input type="string" class="form-control" id="title" aria-describedby="title" placeholder="Pseudo Arcadia" name="pseudo">
+
+    </div>
+    <div class="mb-3">
+      <label for="textCommentaire" class="form-label" >Commentaire</label>
+      <textarea type="text-area" class="form-control " rows="5" id="textCommentaire" placeholder="Expliquez votre journée " name="commentaire"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" id="boutonAddAvis">Valider</button>
+      </div>
+  </form>
+</div>
+
+<!-- Modal edition-->
+<div class="modal fade" id="EditionService" tabindex="-1" aria-labelledby="EditionService" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="EditionService">Laissez votre avis</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="container"  name="FormulaireAvis">
+                <div class="mb-3">
+                  <label for="title" class="form-label"> 
+                    <h2 class="mb-4" name="pseudo">Votre Pseudo</h2></label>
+                  <input type="text" class="form-control" id="title" aria-describedby="title" placeholder="Pseudo Arcadia">
+        
+                </div>
+                <div class="mb-3">
+                  <label for="textDescription" class="form-label" name="description">Description</label>
+                  <textarea type="text-area" class="form-control " rows="5" id="textDescription" placeholder="Expliquez votre journée "></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" name="boutonAddAvis">Valider</button>
+                  </div>
+              </form>
+        </div>
+
+      </div>
+    </div>
+  </div>

@@ -1,10 +1,11 @@
+
+<!--Formulaire pour inscrire un employé ou un vétérinaire-->
 <form class="container text-dark fs-4" id="formulaireInscription">
   <div class="m-5">
       <!--Inscription prenom-->
       <label for="PrenomInput" class="form-label">Votre prénom</label>
       <input type="text" class="form-control" id="PrenomInput" placeholder="John" name="prenom">
 
-      <!--Inscription nom-->
 
       <label for="NomInput" class="form-label" >Votre nom</label>
       <input type="text" class="form-control" id="NomInput" placeholder="Doe" name="nom">
@@ -28,3 +29,21 @@
     <button type="button" class="btn btn-primary ms-5 mb-5" id="btnInscription">Inscription</button>
   </div>
 </form>
+
+<!-- Information sur un service-->
+<div class=" row row-cols-1 row-cols-lg-2 mt-5">
+  <div ><img class="col w-100 h-100 rounded" src="/images/visiteGuide.jpg" alt=""></div> 
+    <div class="col"> 
+        <button type="button" class="btn btn-primary m-4" data-bs-toggle="modal" data-bs-target="#EditionService" data-show="admin">Modifier</button>
+        <div class="action-service-btn">
+          <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#EditionService" data-show="admin"><i class="bi bi-pencil-square"></i></button>
+          <h2 class="mb-4">VISITE GUIDÉ (GRATUIT)</h2>    
+          <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#DeleteService" data-show="admin"><i class="bi bi-trash3"></i></button>
+        </div>  
+
+        <p>Si vous ne savez pas par où commencer, des guides sont présents pour vous accompagner durant toute votre journée et de vous faire partager leurs connaissances et leurs passions</p>
+        <p>Pour bénéficier de ce service, vous pouvez nous <a href="/contact" class="fw-bold">contacter</a> où en faire la demande en arrivant à l'accueil d'ARCADIA</p>
+        
+        </div>  
+      <hr class=" w-100 my-5" >
+  </div>  

@@ -12,29 +12,33 @@
     <p class="text-justify text-center">En cas de difficulté ou pour toute question sur votre séjour, n'hésitez pas à nous joindre au 02 23 45 67 89 et ou via le formulaire ci-dessous </p>
 </div>
 
-<form class="container border border-secondary rounded fw-bold">
+<form class="container border border-primary rounded fw-bold p-5">
     <div class="">
-      <label for="contactTitle" class="form-label">Titre </label>
-      <input type="text" class="form-control" id="contactTitle" aria-describedby="text-area">
+      <label for="contactTitle" class="form-label">Object de votre demande </label>
+      <input type="text" class="form-control" id="contactTitle" aria-describedby="text-area" id="DemandeContact">
     </div>
     <div class="mb-3">
-      <label for="contactDescription" class="form-label ">Votre message</label>
-      <textarea name="text-area" id="contactDescription" rows="5" class="form-control "></textarea>
+      <label for="contactDescription" class="form-label" >Votre message</label>
+      <textarea id="contactDescription" rows="5" class="form-control" id="MessageContact"></textarea>
     </div>
     <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label mx-5  ">Votre adesse mail</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <label for="exampleInputEmail1" class="form-label mx-5" >Votre adesse mail</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" id="EmailContact">
     </div>
     <div class="mb-3">
       <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Je confirme ma demande de contact</label>
+      <label class="form-check-label" for="exampleCheck1" name="boxContact">Je confirme ma demande de contact</label>
     </div>
     <div class="SendContact">
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Envoyer</button>
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnSend">Envoyer</button>
+
+        
     </div>
   </form>
 </div>
-
+<body>
+  
+</body>
   <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -48,7 +52,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler ma demande</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Confirmer ma demande</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" href="mailto:julien45.dubois@gmail.com">Confirmer ma demande</button>
         </div>
       </div>
     </div>

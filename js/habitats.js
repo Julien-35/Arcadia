@@ -1,4 +1,4 @@
-/*
+
 
 let togg1 = document.getElementById("togg1");
 let togg2 = document.getElementById("togg2");
