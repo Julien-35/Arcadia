@@ -1,34 +1,122 @@
 
 
-<h1>Users</h1>
-<ul></ul>
-<!-- <script>
-const ulElement= document.querySelector("ul");
+<div class="container text-center text-primary">
 
-const myHeaders = new Headers();
-myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+    <h2 class="accordion-header" id="flush-headingAvis">
+      <button class="btn btn-primary collapsed fs-4 mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAvis" aria-expanded="false" aria-controls="flush-collapseAvis">
+       Voir tout les avis
+      </button>
+    </h2>
+    <div id="flush-collapseAvis" class="accordion-collapse collapse" aria-labelledby="flush-headingAvis" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body ">
+            <ol class="list-group list-group-numbered overflow-scroll" id="avis" style="height: 300px;">
+        </div>
+    </div>
+  </div>
+</div>
 
-const requestOptions = {
-  mode:  'cors', 
-  method: "GET",
-  headers: myHeaders,
-  redirect: "follow"
-};
+<div class="d-flex flex-column">
+  <div>
+  <div class="container text-dark">
+    <div class="row row-cols-1 row-cols-lg-2 mt-5 mb-5">
+      <div><img class="col w-100 h-100 rounded" src="/images/visiteGuide.jpg" alt=""></div> 
+      <div id="service" class="d-flex justify-content-around"></div>      
+    </div>  
 
- fetch("http://127.0.0.1:8000/api/avis/get", requestOptions) 
-  .then((response) => {
-    if  (response.ok === false){
-      return response.json
-    } else
-    {
-      console.log("Impossible de récupérer les informations utilisateur");
-    }
-  })
-   .then((users) =>  
-  console.log(users));
-    for (const  avis of users) {
-      const liElement = document.createElement("li");
-      liElement.innerText = users.avis;
-    }
 
-</script>   -->
+<div class="d-flex flex-column align-items-center">
+      <h2 class="accordion-header" id="flush-headingService">
+          <button class="btn btn-primary collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            Modifier le service
+          </button>
+      </h2>
+<div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingService" data-bs-parent="#accordionFlushExample">
+    <div class="accordion-body ">
+      <form class="d-flex justify-content flex-column text-center" id="putFormulaire">
+        <div class="form-group">
+          <label for="putTitre" class="pt-3">Titre du service</label>
+          <input type="text" class="form-control" id="putTitre" placeholder="Ajouter un titre" name="titre">
+        </div>
+    
+        <div class="form-group">
+          <label for="putDescritpion">Descritpion</label>
+          <input type="text" size="50" style="height:200px;" class="form-control" id="putDescritpion" placeholder="Indiquer la descritpion" name="commentaire">
+        </div>
+    
+        <button type="button" class="btn btn-primary" id="PutEmployeBouton">Bouton</button>
+    </form>
+    
+       </div>
+     </div>
+   </div>
+
+
+
+<hr class=" w-100 my-5">
+
+      <div class="mb-5 row row-cols-1 row-cols-lg-2 text-center">
+        <div id="service2" class="d-flex justify-content-around"></div>
+        <div><img class="col w-100 h-100 rounded" src="/images/restauration.jpg" alt=""></div>
+      </div>
+
+
+  
+<div class="d-flex flex-column align-items-center">
+  <h2 class="accordion-header" id="flush-headingRestauration">
+    <button class="btn btn-primary collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseRestauration" aria-expanded="false" aria-controls="flush-collapseRestauration">
+       Modifier le service
+    </button>
+  </h2>
+<div id="flush-collapseRestauration" class="accordion-collapse collapse" aria-labelledby="flush-headingRestauration" data-bs-parent="#accordionFlushExample">
+  <div class="accordion-body ">
+    <form class="d-flex justify-content flex-column text-center" id="putFormulaire">
+      <div class="form-group">
+        <label for="putTitre" class="pt-3">Titre du service</label>
+        <input type="text" class="form-control" id="putTitre" placeholder="Ajouter un titre" name="titre">
+      </div>
+  
+      <div class="form-group">
+        <label for="putDescritpionRestauration">Descritpion</label>
+        <input type="text" size="50" style="height:200px;" class="form-control" id="putDescritpionRestauration" placeholder="Indiquer la descritpion" name="commentaire">
+      </div>
+  
+      <button type="button" class="btn btn-primary m-2 d-flex align-self-center" id="PutRestaurantBouton">Bouton</button>
+  </form>
+  
+     </div>
+   </div>
+
+
+<hr class=" w-100 my-5">
+
+
+    <div class="mb-5 row row-cols-1 row-cols-lg-2 text-center">
+      <div ><img class="col w-100 h-100 rounded" src="/images/train.jpg" alt=""></div> 
+      <div id="service3" class="d-flex justify-content-around"></div>      
+    </div>    
+
+
+
+     <div class="d-flex flex-column align-items-center">
+      <h2 class="accordion-header" id="flush-headingTrain">
+        <button class="btn btn-primary collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTrain" aria-expanded="false" aria-controls="flush-collapseTrain">
+           Modifier le service
+        </button>
+      </h2>
+  <div id="flush-collapseTrain" class="accordion-collapse collapse" aria-labelledby="flush-headingTrain" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body ">
+        <form class="d-flex justify-content flex-column text-center" id="putFormulaire">
+          <div class="form-group">
+            <label for="putTitre" class="pt-3">Titre du service</label>
+            <input type="text" class="form-control" id="putTitre" placeholder="Ajouter un titre" name="titre">
+          </div>
+      
+          <div class="form-group">
+            <label for="putTrain">Descritpion</label>
+            <input type="text" size="50" style="height:200px;" class="form-control" id="putTrain" placeholder="Indiquer la descritpion" name="commentaire">
+          </div>
+      
+          <button type="button" class="btn btn-primary" id="PutEmployeBouton">Bouton</button>
+      </form>
+      
+         </div>

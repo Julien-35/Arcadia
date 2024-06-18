@@ -1,11 +1,11 @@
 const contact = document.getElementById("contactTitle");
 const message = document.getElementById("contactDescription");
 const email = document.getElementById("exampleInputEmail1");
-const box = document.getElementById("exampleCheck1");
 const btnSend = document.getElementById("btnSend");
 
 contact.addEventListener("keyup", validateFormContact);
 email.addEventListener("keyup", validateFormContact);
+
 btnSend.addEventListener("click", CheckCredentials);
 
 //fonction pour valider le formulaire de d'inscription
@@ -13,12 +13,13 @@ function validateFormContact(){
     const contactOk = validateData (contact);
     const messageOk = validateTextArea (message);
     const emailOk = validateMailVisiteur(email);
-        if(contactOk && messageOk && emailOk){
+        if(contactOk && messageOk && emailOk ){
             btnSend.disabled = false;
             } else {
                 btnSend.disabled = true;
             }
-}
+        }
+
 
 function validateData(input){
     if (input.value != ''){
