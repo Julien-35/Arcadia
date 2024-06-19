@@ -64,3 +64,20 @@ function validateMailVisiteur(input){
 
     }
 }
+
+// Script pour l'envoi d'un mail
+
+
+function sendEmail() {
+    email.send({
+        Host : "smtp.yourisp.com",
+        Username : "username",
+        Password : "password",
+        To : 'julien45.dubois@gmail.com',
+        From : "contact@isp.com",
+        Subject : "ceci est l'objet",
+        Body : "Et ceci est le message"
+    }).then(
+      message => alert(message)
+    );
+    }

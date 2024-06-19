@@ -1,12 +1,21 @@
-// METHOD PUT 
-const PutFormulaire = document.getElementById("putFormulaire");
-const PutService = document.getElementById("putBouton");
+const PutAdminFormulaire = document.getElementById("putAdminFormulaire");
+const PutAdminService = document.getElementById("PutAdminBouton");
+const BtnHoraire = document.getElementById("PutHoraireBouton");
 
-PutService.addEventListener("click",ModifierService);
+const PutHoraire = document.getElementById("formulaireHoraire");
 
-async function ModifierService () {
+const Service4 = document.getElementById("service4");
+const Service5 = document.getElementById("service5");
+const Service6 = document.getElementById("service6");
 
-let dataForm = new FormData(PutFormulaire);
+
+PutAdminService.addEventListener("click",ModifierServices);
+BtnHoraire.addEventListener("click",ModifierHoraires);
+
+
+async function ModifierServices () {
+
+let dataForm = new FormData(PutAdminFormulaire);
         const myHeaders = new Headers();
             myHeaders.append("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
             myHeaders.append("Content-Type", "application/json");
@@ -31,18 +40,11 @@ let dataForm = new FormData(PutFormulaire);
 }
 
 
-const Service = document.getElementById("service");
-const Service2 = document.getElementById("service2");
-const Service3 = document.getElementById("service3");
-
-
-
-
 if (document.readyState === "loading") {
     // Loading hasn't finished yet
-    Service.addEventListener('DOMContentLoaded', voirService);
-    Service2.addEventListener('DOMContentLoaded', voirService);
-    Service3.addEventListener('DOMContentLoaded', voirService);
+    Service4.addEventListener('DOMContentLoaded', voirService);
+    Service5.addEventListener('DOMContentLoaded', voirService);
+    Service6.addEventListener('DOMContentLoaded', voirService);
 
 
   } else {
@@ -106,10 +108,41 @@ async function voirService(){
                   </div> 
                   </div> `
 
-            Service.innerHTML = content1;
-            Service2.innerHTML = content2;
-            Service3.innerHTML = content3;
+            Service4.innerHTML = content1;
+            Service5.innerHTML = content2;
+            Service6.innerHTML = content3;
 }}})
           .catch((error) => 
             console.error(error));
 }
+
+// Voir les horaires :
+
+if (document.readyState === "loading") {
+  VoirDate();
+}
+ function ModifierHoraires(){
+
+  let dataForm = new FormData(PutHoraire);
+
+  const myHeaders = new Headers();
+  myHeaders.append("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
+  myHeaders.append("Content-Type", "application/json");
+  
+  const raw = JSON.stringify({
+    "description": dataForm.get("horaire"),
+  });
+  
+  const requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+  };
+  
+   fetch("http://127.0.0.1:8000/api/horaire/2", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error));
+}
+      

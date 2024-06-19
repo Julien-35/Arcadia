@@ -1,18 +1,4 @@
-
-
-let togg1 = document.getElementById("togg1");
-let togg2 = document.getElementById("togg2");
-let togg3 = document.getElementById ("togg3");
-let d1 = document.getElementById("d1");
-let d2 = document.getElementById("d2");
-let d3 = document.getElementById("d3");
-let d4 = document.getElementById("d4");
-let d5 = document.getElementById("d5");
-let d6 = document.getElementById("d6");
-
 const animal = document.getElementById("Animal");
-const animal2 = document.getElementById("Animal2");
-
 
 
 if (document.readyState === "loading") {
@@ -23,53 +9,6 @@ if (document.readyState === "loading") {
     VoirAnimal();
   }
 
-togg1.addEventListener("click", () => {
-  if(getComputedStyle(d1,d2).display != "none"){
-    d1.style.display = "none";
-    d2.style.display = "none";
-  } else {
-    d1.style.display = "block";
-    d2.style.display = "block";
-  }
-});
-
-
-function toggSavane(){
-  if(getComputedStyle(d1,d2).display != "none"){
-    d1.style.display = "none";
-    d2.style.display = "none";
-  } else {
-    d1.style.display = "block";
-    d2.style.display = "none";
-  }
-};
-togg2.onclick = toggSavane;
-
-function toggMarais(){
-  if(getComputedStyle(d3,d4).display != "none"){
-    d3.style.display = "none";
-    d4.style.display = "none";
-  } else {
-    d3.style.display = "block";
-    d4.style.display = "block";
-  }
-};
-togg2.onclick = toggMarais;
-
-
-function toggJungle(){
-  if(getComputedStyle(d5,d6).display != "none"){
-    d5.style.display = "none";
-    d6.style.display = "none";
-  } else {
-    d5.style.display = "block";
-    d6.style.display = "block";
-  }
-};
-togg3.onclick = toggJungle;
-
-
-// Fonction pour afficher un animal dans sa div
 
 async function VoirAnimal (){
     const myHeaders = new Headers();
@@ -100,9 +39,9 @@ await fetch("http://127.0.0.1:8000/api/animal/get", requestOptions)
       content += 
     
     `<div class="d-flex justify-content pb">
-                      <table class="table container">
-                        <tbody class="text-start text-dark">
-                          <tr>
+                      <table class="table container ">
+                        <tbody>
+                          <tr >
                             <th scope="row">RACE</th>
                             <td>${item.races}</td>
                           </tr>
@@ -127,8 +66,12 @@ await fetch("http://127.0.0.1:8000/api/animal/get", requestOptions)
                             <td>${item.quantity}</td>
                           </tr>
                           <tr>
-                            <th scope="row">Rapport du vétérinaire</th>
-                            <td>${item.RapportVeterinaire}</td>
+                            <th scope="row">Date de passage</th>
+                            <td>${item.date}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Détail de l'état de l'animal </th>
+                            <td>${item.RapportVeterinair}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -137,7 +80,6 @@ await fetch("http://127.0.0.1:8000/api/animal/get", requestOptions)
     });
     
     animal.innerHTML = content;
-    animal2.innerHTML = content;
   })  .catch((error) => console.error(error));
 
 }

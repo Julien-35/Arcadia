@@ -58,8 +58,6 @@ const Service2 = document.getElementById("service2");
 const Service3 = document.getElementById("service3");
 
 
-
-
 if (document.readyState === "loading") {
     // Loading hasn't finished yet
     Service.addEventListener('DOMContentLoaded', voirService);

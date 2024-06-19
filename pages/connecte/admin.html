@@ -1,82 +1,168 @@
 
+
 <!--Formulaire pour inscrire un employé ou un vétérinaire-->
+<div class="container text-center text-primary ">
 
-<div class="container">
-<form class="container text-dark fs-4" id="formulaireInscription">
+
 
   
-  <div class="m-5">
-      <!--Inscription prenom-->
-      <label for="PrenomInput" class="form-label">Votre prénom</label>
-      <input type="text" class="form-control" id="PrenomInput" placeholder="John" name="prenom">
+  <div class=" d-flex flex-column ">
+  <h2 class="accordion-header" id="flush-headingAvis">
+    <button class="btn btn-primary collapsed fs-4 mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAvis" aria-expanded="false" aria-controls="flush-collapseAvis">
+    Inscrire un nouvel utilisateur</button></h2>
 
+  <div id="flush-collapseAvis" class="accordion-collapse collapse" aria-labelledby="flush-headingAvis" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <form class="text-dark fs-4 contour form-control" id="formulaireInscription">
+          <div class="container text-center">
+              <!--Inscription prenom-->
+              <label for="PrenomInput" class="form-label m-3">Votre prénom</label>
+              <input type="text" class="form-control" id="PrenomInput" placeholder="John" name="prenom">
+        
+        
+              <label for="NomInput" class="form-label m-3" >Votre nom</label>
+              <input type="text" class="form-control" id="NomInput" placeholder="Doe" name="nom">
+        
+        
+              <label for="EmailInput" class="form-label m-3">Adresse mail</label>
+              <input type="email" class="form-control" id="EmailInput" value="zoo@arcadia.com" name="email">
 
-      <label for="NomInput" class="form-label" >Votre nom</label>
-      <input type="text" class="form-control" id="NomInput" placeholder="Doe" name="nom">
+            <div class="invalid-feedback">Le mail ne fonctionne pas</div>
+         
+    
+            <label for="PasswordInput" class="form-label m-3">Mot de passe</label>
+            <input type="password" class="form-control" id="PasswordInput" value="Azerty12!" name="password">
 
-
-    <label for="EmailInput" class="form-label">Adresse mail</label>
-    <input type="email" class="form-control" id="EmailInput" value="zoo@arcadia.com" name="email">
-    <div class="invalid-feedback">
-      Le mail ne fonctionne pas</div>
+            <!-- Permet de rajouter un texte tant que les conditions du Regex ne sont pas bonne-->
+            <div class="invalid-feedback">Mot de passe non robuste</div>
+            <button type="button" class="btn btn-primary my-5" id="btnInscription">Inscription</button>
+            </div>
+         </form>        
+    </div>
   </div>
-
-  <div class="m-5">
-    <label for="PasswordInput" class="form-label">Mot de passe</label>
-    <input type="password" class="form-control" id="PasswordInput" value="Azerty12!" name="password">
-    <!-- Permet de rajouter un texte tant que les conditions du Regex ne sont pas bonne-->
-    <div class="invalid-feedback">Mot de passe non robuste</div>
-  </div>
- 
-  
-  <div class="text-center">    
-    <button type="button" class="btn btn-primary ms-5 mb-5" id="btnInscription">Inscription</button>
-  </div>
-</form>
-
-
-
-
-<!-- Les services -->
-    <div class="row row-cols-1 row-cols-lg-2 mt-5 ">
-          <div >
-            <img class="col w-100 h-100 rounded" src="/images/visiteGuide.jpg" alt="">
-          </div> 
-          <div id="service" class="d-flex justify-content-center"></div>
-    </div>  
- 
-      <hr class=" w-100 my-5">
-
-  <div class=" row row-cols-1 row-cols-lg-2">
-      <div class="col"> 
-        <div id="service2" class="d-flex justify-content-center"></div>
-      </div>
-      <div >
-        <img class="col w-100 h-100 rounded" src="/images/restauration.jpg" alt="">
-      </div>
-  </div>
-
-  <hr class=" w-100 my-5">
-
-      <div class="mb-5 row row-cols-1 row-cols-lg-2 text-center">
-          <div>
-            <img class="col w-100 h-100 rounded" src="/images/train.jpg" alt="">
-          </div>
-          <div id="service3" class="d-flex justify-content-center"></div>
-
-        <hr class=" w-100 my-5">
-
-<!-- Formulaire pour modifier les services-->
-<form class="d-flex justify-content flex-column" id="putFormulaire">
-  <div class="form-group">
-    <label for="put">Example label</label>
-    <input type="text" class="form-control" id="put" placeholder="Example input" name="titre">
-  </div>
-  <div class="form-group">
-  <label for="Put2">Another label</label>
-  <input type="text" class="form-control" id="Put2" placeholder="Another input" name="commentaire">
-  </div>
-  <button type="button" class="btn btn-primary" id="putBouton">Bouton</button>
-</form>
-  <!--Fin de page DIV-->
 </div>
+
+<!--Modifications des horaires d'ouvertures-->
+<div class="container-fluid">
+  <form id="formulaireHoraire">
+    <h4><label for="HoraireInput" class="form-label m-3 text-dark ">Modification des horaires</label></h4>
+    <input type="text" class="form-control" id="HoraireInput" placeholder="Nos horaires d'ouvertures sont....." name="horaire">
+    <button type="button" class="btn btn-primary m-5" id="PutHoraireBouton" name="horaire">Confirmer les nouveaux horaires</button>
+  </form>
+</div>
+
+
+
+<!--Accordéon pour l'ouverture des Services-->
+<div class="container">
+  <div class="text-center d-flex flex-column">
+    <h2 class="accordion-header" id="flush-headingAvis">
+       <button class="btn btn-primary collapsed fs-4 my-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseServices" aria-expanded="false" aria-controls="flush-collapseServices">
+        Afficher <br> les services</button></h2>
+     <div id="flush-collapseServices" class="accordion-collapse collapse" aria-labelledby="flush-headingServices" data-bs-parent="#accordionFlushExample">
+         <div class="accordion-body">
+           <div>
+               <div class="container text-dark">
+                 <div class="row row-cols-1 row-cols-lg-2 mt-5 mb-5">
+                   <div><img class="col w-100 h-100 rounded" src="/images/visiteGuide.jpg" alt=""></div> 
+                   <div id="service4" class="d-flex justify-content-around"></div>      
+                 </div>  
+             
+             <!--Accordéon pour modifier le 1er Services-->
+
+                 <div class="d-flex flex-column align-items-center">
+                   <h2 class="accordion-header" id="flush-headingVisite">
+                     <button class="btn btn-primary collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseVisite" aria-expanded="false" aria-controls="flush-collapseVisite">
+                        Modifier le service</button></h2>
+                 <div id="flush-collapseVisite" class="accordion-collapse collapse" aria-labelledby="flush-headingVisite" data-bs-parent="#accordionFlushExample">
+                   <div class="accordion-body ">
+                     <form class="d-flex justify-content flex-column text-center" id="putAdminFormulaire">
+                       <div class="form-group">
+                         <label for="putAdminTitre" class="pt-3">Titre du service</label>
+                         <input type="text" class="form-control" id="putAdminTitre" placeholder="Ajouter un titre" name="titre">
+                       </div>
+                   
+                       <div class="form-group">
+                         <label for="putDescritpionRestauration">Descritpion</label>
+                         <input type="text" size="50" style="height:200px;" class="form-control" id="putDescritpionVisite" placeholder="Indiquer la descritpion" name="commentaire">
+                       </div>
+                   
+                       <button type="button" class="btn btn-primary m-2 d-flex align-self-center" id="PutAdminBouton">Confirmer la modification</button>
+                   </form>
+                      </div>
+                    </div>
+                </div>
+             
+             <hr class=" w-100 my-5">
+             
+                   <div class="mb-5 row row-cols-1 row-cols-lg-2 text-center">
+                     <div id="service5" class="d-flex justify-content-around"></div>
+                     <div><img class="col w-100 h-100 rounded" src="/images/restauration.jpg" alt=""></div>
+                   </div>
+             
+                       
+
+                   
+        <!--Accordéon pour modifier le 2éme Services-->          
+             <div class="d-flex flex-column align-items-center">
+                <h2 class="accordion-header" id="flush-headingRestauration">
+                   <button class="btn btn-primary collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseRestauration" aria-expanded="false" aria-controls="flush-collapseRestauration">
+                    Modifier le service
+                   </button>
+                </h2>
+
+             <div id="flush-collapseRestauration" class="accordion-collapse collapse" aria-labelledby="flush-headingRestauration" data-bs-parent="#accordionFlushExample">
+               <div class="accordion-body ">
+
+                 <form class="d-flex justify-content flex-column text-center" id="putFormulaire">
+                      <div class="form-group">
+                        <label for="putTitre" class="pt-3">Titre du service</label>
+                        <input type="text" class="form-control" id="putTitre" placeholder="Ajouter un titre" name="titre">
+                      </div>
+               
+                      <div class="form-group">
+                        <label for="putDescritpionRestauration">Descritpion</label>
+                        <input type="text" size="50" style="height:200px;" class="form-control" id="putDescritpionRestauration" placeholder="Indiquer la descritpion" name="commentaire">
+                      </div>
+               
+                      <button type="button" class="btn btn-primary m-2 d-flex align-self-center" id="PutRestaurantBouton">Confirmer la modification</button>
+                  </form>
+                </div>
+              </div>
+             
+             
+             <hr class=" w-100 my-5">
+             
+             
+                 <div class="mb-5 row row-cols-1 row-cols-lg-2 text-center">
+                   <div ><img class="col w-100 h-100 rounded" src="/images/train.jpg" alt=""></div> 
+                   <div id="service6" class="d-flex justify-content-around"></div>      
+                 </div>    
+             
+                 <div class="d-flex flex-column align-items-center">
+                   <h2 class="accordion-header" id="flush-headingTrain">
+                      <button class="btn btn-primary collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTrain" aria-expanded="false" aria-controls="flush-collapseTrain">
+                        Modifier le service
+                      </button>
+                   </h2>
+
+                 <div id="flush-collapseTrain" class="accordion-collapse collapse" aria-labelledby="flush-headingTrain" data-bs-parent="#accordionFlushExample">
+                   <div class="accordion-body ">
+                     <form class="d-flex justify-content flex-column text-center" id="putAdminFormulairze">
+
+                       <div class="form-group">
+                         <label for="aPutAdminBouton" class="pt-3">Titre du service</label>
+                         <input type="text" class="form-control" id="aPutAdminBouton" placeholder="Ajouter un titre" name="titre">
+                       </div>
+                   
+                       <div class="form-group">
+                         <label for="putDescritpionTrain">Descritpion</label>
+                         <input type="text" size="50" style="height:200px;" class="form-control" id="putDescritpionTrain" placeholder="Indiquer la descritpion" name="commentaire">
+                       </div>
+
+                       <button type="button" class="btn btn-primary m-2 d-flex align-self-center" id="PutaModifer">Confirmer la modification</button>
+                     </form>
+                    </div>
+                  </div>   
+                    
+

@@ -12,10 +12,10 @@
     <p class="text-justify text-center">En cas de difficulté ou pour toute question sur votre séjour, n'hésitez pas à nous joindre au 02 23 45 67 89 et ou via le formulaire ci-dessous </p>
 </div>
 
-<form class="container border border-primary rounded fw-bold p-5" method="post">
+<form class="container border border-primary rounded fw-bold p-5" action="mailto:julien45.dubois@gmail.com?subject=Contact" method="post" name="envoi" enctype="text/plain">
     <div class="">
       <label for="contactTitle" class="form-label">Object de votre demande </label>
-      <input type="text" class="form-control" id="contactTitle" aria-describedby="text-area" id="DemandeContact">
+      <input type="text" class="form-control" id="contactTitle" aria-describedby="text-area" name="DemandeContact">
     </div>
     <div class="mb-3">
       <label for="contactDescription" class="form-label" >Votre message</label>
@@ -27,10 +27,11 @@
     </div>
 
     <div class="SendContact">
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnSend">Envoyer</button>
+        <input type="submit" value="Envoyer" name="Envoyer" id="btnSend">Envoyer</button>
     </div>
   </form>
 </div>
+
 
 
   <!-- Modal -->
@@ -44,7 +45,8 @@
         
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler ma demande</button>
-          <button type="button" class="btn btn-primary"data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#MessageModal" href="mailto:julien45.dubois@gmail.com">Confirmer ma demande</button>
+          <input type = "button" onClick="sendEmail()"/>
+          <button type="button" class="btn btn-primary"data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#MessageModal"> Confirmer ma demande</button>
         </div>
       </div>
     </div>
@@ -64,7 +66,9 @@
       </div>
       <div class="modal-footer">
        <a href="/home"> <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Revenir à l'accueil</button></a>
+
       </div>
     </div>
   </div>
 </div>
+

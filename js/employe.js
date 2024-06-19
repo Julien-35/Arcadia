@@ -2,7 +2,13 @@ const Avis = document.getElementById("avis");
 const PutFormulaire = document.getElementById("putFormulaire");
 const PutEmployeBouton = document.getElementById("PutEmployeBouton");
 
+const Service = document.getElementById("service");
+const Service2 = document.getElementById("service2");
+const Service3 = document.getElementById("service3");
+
+
 PutEmployeBouton.addEventListener("click", ModifierService);
+
 if (document.readyState === "loading") {
   // Loading hasn't finished yet
   Avis.addEventListener('DOMContentLoaded', voirAvis);
@@ -12,26 +18,28 @@ if (document.readyState === "loading") {
 }
 
 async function voirAvis(){
-const myHeaders = new Headers();
-myHeaders.set("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
+  const myHeaders = new Headers();
+    myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+    myHeaders.append("Content-Type", "application/json");
 
-const requestOptions = {
-  method: "GET",
-  headers: myHeaders,
-  redirect: "follow",
-  mode:"cors",
-};
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+    mode:"cors",
+  };
 
 await fetch("http://127.0.0.1:8000/api/avis/get", requestOptions) 
-.then((response) => {
-  if  (response.ok === true){
-    return response.json()
-  } else
-  {
-    console.log("Impossible de récupérer les informations utilisateur");
-  }
+  .then((response) => {
+      if  (response.ok === true){
+        return response.json()
+      } else
+    {
+      console.log("Impossible de récupérer les informations utilisateur");
+    }
 })
 .then((result)=> {
+  
   let content = '';
   result.forEach(item => {
     content += 
@@ -42,8 +50,9 @@ await fetch("http://127.0.0.1:8000/api/avis/get", requestOptions)
         <div class="fw-bold">${item.pseudo}</div>
         ${item.commentaire}
       </div>
+      <div>${item.isVisible}</div>
     </li>
-  </ol>    `
+  </ol> `
 
     // `<select class="form-select" multiple aria-label="multiple select example">
     // <option>${item.pseudo}</option>
@@ -58,11 +67,6 @@ console.log(error));
 }
 
 
-const Service = document.getElementById("service");
-const Service2 = document.getElementById("service2");
-const Service3 = document.getElementById("service3");
-
-
 async function ModifierService () {
 
   let dataForm = new FormData(PutFormulaire);
@@ -71,7 +75,6 @@ async function ModifierService () {
               myHeaders.append("Content-Type", "application/json");
   
           const raw = JSON.stringify({
-  
               "nom": dataForm.get("titre"),
               "description": dataForm.get("commentaire"),
               });
@@ -102,8 +105,6 @@ if (document.readyState === "loading") {
     voirService();
   }
 
-
-  
 async function voirService(){
 
     const myHeaders = new Headers();

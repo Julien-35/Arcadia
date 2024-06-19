@@ -1,6 +1,4 @@
-
 // création d'une varialbe tokenCookie car elle sera appelé plusieurs fois 
-
 const tokenCookieName = "accestoken";
 //Création de ma variable pour la partie deconnexion depuis l'ID de mon index.html.
 const btnSignout = document.getElementById ("btnSignout");
@@ -10,6 +8,9 @@ const roleCookieName = "role"
 // création de l'évenement du bouton Deconnexion. Au click - le nom 
 
 btnSignout.addEventListener("click", deconnexion);
+
+
+  
 
 //création de la fonction qui prend le nom de l'évenement ci-dessus 'deconnexion' permettant de supprimer les cookies
 function deconnexion () {
@@ -117,23 +118,4 @@ function showAndHideElementsForRoles(){
         }
     })
 }
-
-
-let items = document.querySelectorAll('.carousel .carousel-item')
-
-items.forEach((el) => {
-    const minPerSlide = 4
-    let next = el.nextElementSibling
-    for (let i=1; i<minPerSlide; i++) {
-        if (!next) {
-            // wrap carousel by using first child
-        	next = items[0]
-      	}
-        let cloneChild = next.cloneNode(true)
-        el.appendChild(cloneChild.children[0])
-        next = next.nextElementSibling
-    }
-})
-
-
 
