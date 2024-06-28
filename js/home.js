@@ -15,49 +15,43 @@ if (document.readyState === "loading") {
 
 async function voirAvis(){
   const myHeaders = new Headers();
-  myHeaders.set("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
-  
+    myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+    myHeaders.append("Content-Type", "application/json");
+
   const requestOptions = {
     method: "GET",
     headers: myHeaders,
     redirect: "follow",
     mode:"cors",
   };
-  
-  await fetch("http://127.0.0.1:8000/api/avis/get", requestOptions) 
-  .then((response) => {
-    if  (response.ok === true){
-      return response.json()
-    } else
-    {
-      console.log("Impossible de récupérer les informations utilisateur");
-    }
-  })
-  .then((result)=> {
-    
-    let content = '';
-    result.forEach(item => {
-      content += 
-      `<ol class="list-group ">
-      <li class="list-group-item pb-5 border-black rounded">
-        <div class="text-dark">
-          <h5>${item.pseudo}</h5>
-          <div>${item.commentaire}</div>
-        </div>
-      </li>
-           <div class="p-2"></div>
-    </ol> `
-      // `<select class="form-select" multiple aria-label="multiple select example">
-      // <option>${item.pseudo}</option>
-      // <option>${item.commentaire}</option>
-      // </select>`
-    });
-    
-    VoirAvis.innerHTML = content;
-  })
-  .catch((error) =>  
-  console.log(error));
-  }
+
+await fetch("http://127.0.0.1:8000/api/avis/get", requestOptions) 
+.then(response => response.json())
+
+.then(data => {
+  // Filtrer les données pour ne conserver que celles dont une propriété spécifique est égale à true
+  let filteredData = data.filter(item => item.isVisible === true);
+
+  let content = '';   
+  console.log("test")
+  filteredData.forEach(item => {
+    content += 
+    `
+<ol class="list-group " id="VoirAvis">
+    <li class="list-group-item d-flex justify-content-between align-items-start text-dark">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">${item.pseudo}</div>
+        ${item.commentaire}
+      </div>
+    </li>
+  </ol> `
+  });
+
+  VoirAvis.innerHTML = content;
+})
+.catch((error) =>  
+console.log(error));
+}
 
 
 async function validAvis () {
