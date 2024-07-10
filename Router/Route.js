@@ -11,13 +11,3 @@ export default class Route {
     }
 }
 
-/* 
-[] -> accès quand on est déconnecté 
-["disconnected"] -> Réserver au utilisateur déconnecté
-["admin"] -> Réserver au utilisateur au role admin
-["veterinaire"] -> Réserver au utilisateur au role veterinaire
-["employe"] -> Réserver au utilisateur au role employe
-["admin", "employe"] -> Réserver au utilisateur au role admin OU employe
-["admin", "veterinaire"] -> Réserver au utilisateur au role admin OU veterinaire
-["employe", "veterinaire"] -> Réserver au utilisateur au role employe OU veterinaire
-*/ 

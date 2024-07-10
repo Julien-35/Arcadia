@@ -10,18 +10,14 @@ let d6 = document.getElementById("d6");
 
 
 if (document.readyState === "loading") {
-    // Loading hasn't finished yet
    
   } else {
-    // `DOMContentLoaded` has already fired
      voirHabitat();
   }
   if (document.readyState === "loading") {
-    // Loading hasn't finished yet
    
   } else {
-    // `DOMContentLoaded` has already fired
-      VoirAnimal ();
+      voirAnimal ();
   }
 
 
@@ -71,98 +67,6 @@ function toggJungle(){
 togg3.onclick = toggJungle;
 
 
-// Fonction pour afficher un animal dans sa div
-let animal = document.getElementById("Animal");
-let animal2 = document.getElementById("Animal2");
-
-
-async function VoirAnimal (){
-    const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
-
-
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-        mode:"cors",
-};
-
-await fetch("http://127.0.0.1:8000/api/animal/get", requestOptions)
-.then((response) => {
-    if  (response.ok === true){
-      return response.json()
-    } else
-  {
-    console.log("Impossible de récupérer les informations utilisateur");
-  }
-})
-  .then((result)=> {
-  
-    let content = '';
-    result.forEach(item => {
-      content += 
-    
-    `<div class="d-flex justify-content pb">
-                      <table class="table container">
-                        <tbody class="text-start text-dark">
-                          <tr>
-                            <th scope="row">RACE</th>
-                            <td>${item.Race.label}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Habitats</th>
-                            <td>${item.Habitat.nom}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">PRENOM</th>
-                            <td>${item.prenom}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">ETAT de l'animal</th>
-                            <td>${item.detail}</td>
-                          </tr>
-                          <tr>
-                        </tbody>
-                      </table>
-                    </div>`
-                    {     
-                      let content2 =    
-    
-                      `<div class="d-flex justify-content pb">
-                                        <table class="table container">
-                                          <tbody class="text-start text-dark">
-                                            <tr>
-                                              <th scope="row">RACE</th>
-                                              <td>${item.Race.label}</td>
-                                            </tr>
-                                            <tr>
-                                              <th scope="row">Habitats</th>
-                                              <td>${item.Habitat.nom}</td>
-                                            </tr>
-                                            <tr>
-                                              <th scope="row">PRENOM</th>
-                                              <td>${item.prenom}</td>
-                                            </tr>
-                                            <tr>
-                                              <th scope="row">ETAT de l'animal</th>
-                                              <td>${item.detail}</td>
-                                            </tr>
-                                            <tr>
-                                          </tbody>
-                                        </table>
-                                      </div>`
-
-                    
-                                      animal.innerHTML = content;
-                                      animal2.innerHTML = content2;
-                                    }});
-    
-
-  })  .catch((error) => console.error(error));
-
-}
 
 const DescritpionHabitat1 = document.getElementById("DescriptionSavane");
 const DescritpionHabitat2 = document.getElementById("DescriptionMarais");
@@ -172,62 +76,92 @@ const TitreHabitat2 = document.getElementById("TitreMarais");
 const TitreHabitat3 = document.getElementById("TitreJungle");
 
 
-async function voirHabitat(){
+async function voirHabitat() {
+  const myHeaders = new Headers({
+    "X-AUTH-TOKEN": "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5",
+    "Content-Type": "application/json"
+  });
 
-  const myHeaders = new Headers();
-      myHeaders.append("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
-      myHeaders.append("Content-Type", "application/json");
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/habitat/get", { method: "GET", headers: myHeaders, mode: "cors" });
+    if (!response.ok) throw new Error("Impossible de récupérer les informations des habitats");
+    
+    const habitats = await response.json();
 
-  const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    redirect: "follow",
-    mode:"cors",
-  };
+    // Vérifier que l'array des habitats contient les bons indices
+    if (habitats.length >= 3) {
+      const [savane, marais, jungle] = habitats;
 
-await fetch("http://127.0.0.1:8000/api/habitat/get", requestOptions)
+      document.getElementById("DescriptionSavane").innerHTML = `<p>${savane.description}</p>`;
+      document.getElementById("DescriptionMarais").innerHTML = `<p>${marais.description}</p>`;
+      document.getElementById("DescriptionJungle").innerHTML = `<p>${jungle.description}</p>`;
 
-.then((response) => {
-    if  (response.ok === true){
-      return response.json()
-    } else
-  {
-    console.log("Impossible de récupérer les informations des habitats");
+      document.getElementById("TitreSavane").innerHTML = `<h2>${savane.nom}</h2>`;
+      document.getElementById("TitreMarais").innerHTML = `<h2>${marais.nom}</h2>`;
+      document.getElementById("TitreJungle").innerHTML = `<h2>${jungle.nom}</h2>`;
+    }
+  } catch (error) {
+    console.error("Erreur dans la récupération des habitats:", error);
   }
-})
-.then((item)=> {
-  let content = 
-    `
-    <p>${item[0].description}</p>`
-   {
-
-  let content2 =    
-      `
-      <p>${item[1].description}</p>`
-    {
-  let content3 =    
-  
-      `<p>${item[2].description}</p>`
-
-      {
-    let content4 =         
-      `<h2>${item[0].nom}</h2>`
-       {    
-    let content5 =         
-      `<h2>${item[1].nom}</h2>`
-      {
-    let content6 =         
-      `<h2>${item[2].nom}</h2>`
-
-DescritpionHabitat1.innerHTML = content;
-DescritpionHabitat2.innerHTML = content2;
-DescritpionHabitat3.innerHTML = content3;
-
-TitreHabitat1.innerHTML = content4;
-TitreHabitat2.innerHTML = content5;
-TitreHabitat3.innerHTML = content6;
-
-}}}}}})
-.catch((error) =>  
-console.log(error));
 }
+
+
+// Fonction pour afficher un animal dans sa div
+
+
+async function voirAnimal() {
+  const myHeaders = new Headers({
+    "X-AUTH-TOKEN": "38f1c426526d1aeebb80d777b8733f1ef09fc484",
+    "Content-Type": "application/json"
+  });
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/animal/get", { method: "GET", headers: myHeaders, mode: "cors" });
+    if (!response.ok) throw new Error("Impossible de récupérer les informations des animaux");
+    
+    const animals = await response.json();
+
+    const habitatContainers = {
+      1: document.getElementById("AnimalSavane"),
+      2: document.getElementById("AnimalMarais"),
+      3: document.getElementById("AnimalJungle")
+    };
+
+    // Nettoyer les conteneurs avant d'ajouter de nouveaux éléments
+    Object.values(habitatContainers).forEach(container => container.innerHTML = '');
+
+    animals.forEach(animal => {
+      const createdAt = animal.created_at ? new Date(animal.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : 'N/A';
+      const feedingTime = animal.feeding_time ? new Date(animal.feeding_time).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : 'N/A';
+      
+      const container = habitatContainers[animal.habitat.id];
+
+      if (container) {
+        container.innerHTML += `
+          <div class="col">
+            <img src="data:image/jpeg;base64,${animal.image_data}" alt="Image de ${animal.id}" style="width: 294px; height: 185px;" class="img-thumbnail img-responsive" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidth${animal.id}" aria-expanded="false" aria-controls="collapseWidth${animal.id}">
+            <div class="collapse" id="collapseWidth${animal.id}">
+              <div class="card card-body mx-auto mb-5">
+                <table class="table">
+                  <tbody class="text-center">
+                    <tr><th scope="row" class="text-dark">Race</th><td class="text-dark">${animal.race.label}</td></tr>
+                    <tr><th scope="row" class="text-dark">PRÉNOM</th><td class="text-dark">${animal.prenom}</td></tr>
+                    <tr><th scope="row" class="text-dark">ÉTAT de l'animal</th><td class="text-dark">${animal.etat}</td></tr>
+                    <tr><th scope="row" class="text-dark">La nourriture proposée</th><td class="text-dark">${animal.nourriture}</td></tr>
+                    <tr><th scope="row" class="text-dark">Quantité du dernier repas</th><td class="text-dark">${animal.grammage}</td></tr>
+                    <tr><th scope="row" class="text-dark">Dernier passage</th><td class="text-dark">${createdAt}</td></tr>
+                    <tr><th scope="row" class="text-dark">Heure de passage</th><td class="text-dark">${feedingTime}</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    });
+  } catch (error) {
+    console.error("Erreur dans la récupération des animaux:", error);
+  }
+}
+
+

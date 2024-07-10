@@ -1,18 +1,86 @@
-<select id="prenomFilter" onchange="VoirAnimal()">
-    <option value="">Sélectionnez un prénom</option>
-    <!-- Les options seront générées dynamiquement en JavaScript -->
-  </select>
+
+
+<div>
+  
 
 
 
-  <div id="Animal"></div>
+    <p class="accordion-header" id="flush-headingAnimal">
+      <button class="btn btn-primary collapsed ms-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAnimal" aria-expanded="false" aria-controls="flush-collapseAnimal">
+       Voir tout les animaux
+      </button>
+    </p>
+    <div id="flush-collapseAnimal" class="accordion-collapse collapse" aria-labelledby="flush-headingAnimal" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body text-center ">
+          <select id="prenomFilter" onchange="VoirAnimal()" class="border-primary rounded ">
+            <option value="" >Sélectionnez un prénom</option>
+          </select>
+  
+            <div class="list-group list-group-numbered overflow-scroll" id="Animal" style="height: 700px;"></div>
+        </div>
+    </div>
+    </div>
+  
+
+    <!--Accordéon pour l'ouverture des rapports-->
+    <p class="accordion-header col-12" id="flush-headingRapport">
+      <button class="btn btn-primary collapsed m-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseRapport" aria-expanded="false" aria-controls="flush-collapseRapport">
+       Ajouter un rapport</button></p>
 
 
-<div class="border container text-center text-dark ">
-<div id="rapportVeterinaire1" class="d-flex justify-content-between flex-row-reverse"></div>
-<hr>
-<div id="rapportVeterinaire2" class="d-flex justify-content-between flex-row-reverse"></div>
-<hr>
+        
+       <div id="flush-collapseRapport" class="accordion-collapse collapse container" aria-labelledby="flush-headingRapport" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body ">
+<!--Formulaire pour ajouter un Rapport-->
+      <div class="container text-dark text-center border border-primary border-3 rounded p-3 mt-5">
+        <h3>Ajouter un nouveau rapport</h3>
+        <form id="rapportForm" class="d-flex flex-column align-items-center">
+            <label for="date">Date :</label>
+            <input type="datetime-local" id="date" name="date" required class="border border-primary rounded">
+            <br><br>
+            <label for="detail">Détail :</label>
+            <textarea id="detail" name="detail" rows="4" cols="50" required class="border border-primary rounded"></textarea>
+            <br><br>
+            <label for="animalId">Prenom de l'animal : </label>
+            <input type="text" id="animalPrenom" name="animalPrenom" required class="border border-primary rounded">
+            <br><br>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+        </div>  
+      </div>  
+       </div>  
+  
 
-<div id="rapportVeterinaire3" class="d-flex justify-content-between flex-row-reverse"></div>
-</div>
+
+<div>
+ 
+    <!--Accordéon pour l'ouverture des habitats-->
+ <p class="accordion-header col-12" id="flush-headingHabitat">
+   <button class="btn btn-primary collapsed m-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHabitat" aria-expanded="false" aria-controls="flush-collapseHabitat">
+    Afficher les habitats</button></p>
+
+ 
+  <!--Formulaire voir et modifier les habitats-->
+ 
+             <div id="flush-collapseHabitat" class="accordion-collapse collapse container" aria-labelledby="flush-headingHabitat" data-bs-parent="#accordionFlushExample">
+               <div class="accordion-body ">
+ 
+                     <div class="row row-cols-lg-3 border border-primary border-3 pt-3 rounded d-flex align-items-end"> 
+     <!-- Habitat savane-->
+                       <div class="col">
+                         <div> <img class="img-thumbnail" src="/images/Savane_africaine.jpg" alt="" ></div>
+                         <div id="habitat1" class="d-flex justify-content-around"></div>      
+                       </div>
+     <!-- Habitat marais-->
+                       <div class="col">
+                         <div> <img class="img-thumbnail w-100" src="/images/marais.jpg" alt="" ></div>
+                         <div id="habitat2" class="d-flex justify-content-around"></div>      
+                       </div>
+     <!-- Habitat jungle-->
+                       <div class="col">
+                         <div> <img class="img-thumbnail" src="/images/jungle.jpg" alt="" ></div>
+                         <div id="habitat3" class="d-flex justify-content-around"></div>      
+                       </div>
+                     </div> 
+               <div>    
+            </div>

@@ -5,6 +5,9 @@ const PutEmployeBouton = document.getElementById("PutEmployeBouton");
 const Service = document.getElementById("service");
 const Service2 = document.getElementById("service2");
 const Service3 = document.getElementById("service3");
+const Service4 = document.getElementById("service4");
+const Service5 = document.getElementById("service5");
+const Service6 = document.getElementById("service6");
 
 
 
@@ -12,10 +15,28 @@ if (document.readyState === "loading") {
   // Loading hasn't finished yet
   Avis.addEventListener('DOMContentLoaded', voirAvis);
 } else {
-  // `DOMContentLoaded` has already fired
   voirAvis();
 }
 
+if (document.readyState === "loading") {
+  document.addEventListener('DOMContentLoaded', fetchAndPopulatePrenomFilter);
+} else {
+  fetchAndPopulatePrenomFilter();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener('DOMContentLoaded', voirService);
+} else {
+  voirService();
+}
+
+// fonction GET et PUT sur les animaux
+if (document.readyState === "loading") {
+  // Loading hasn't finished yet
+  animal.addEventListener('DOMContentLoaded', VoirAnimal);
+} else {
+  VoirAnimal();
+}
 
 async function voirAvis() {
   const myHeaders = new Headers();
@@ -30,36 +51,29 @@ async function voirAvis() {
 
   try {
       const response = await fetch("http://127.0.0.1:8000/api/avis/get", requestOptions);
-      if (!response.ok) {
-          throw new Error('Failed to fetch avis');
-      }
+      if (!response.ok) throw new Error('Failed to fetch avis');
+      
       const result = await response.json();
-
       let content = '';
       result.forEach(item => {
-          // Déterminer le texte et la classe du bouton en fonction de is_visible
           const buttonText = item.isVisible ? 'Cacher' : 'Afficher';
           const buttonClass = item.isVisible ? 'btn btn-danger toggle-avis-button' : 'btn btn-success toggle-avis-button';
-
           content += `
-          <ol class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-start text-dark">
-                  <div class="ms-2 me-auto">
-                      <div class="fw-bold">${item.pseudo}</div>
-                      ${item.commentaire}
-                  </div>
-                  <button class="${buttonClass}" data-avis-id="${item.id}" data-avis-visible="${item.isVisible}">
-                      ${buttonText}
-                  </button>
-              </li>
-          </ol>`;
+              <ol class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-start text-dark">
+                      <div class="ms-2 me-auto">
+                          <div class="fw-bold">${item.pseudo}</div>
+                          ${item.commentaire}
+                      </div>
+                      <button class="${buttonClass}" data-avis-id="${item.id}" data-avis-visible="${item.isVisible}">
+                          ${buttonText}
+                      </button>
+                  </li>
+              </ol>`;
       });
+      document.getElementById("avis").innerHTML = content;
 
-      Avis.innerHTML = content;
-
-      // Écouter les clics sur les boutons de toggle
-      const toggleButtons = document.querySelectorAll('.toggle-avis-button');
-      toggleButtons.forEach(button => {
+      document.querySelectorAll('.toggle-avis-button').forEach(button => {
           button.addEventListener('click', async () => {
               const avisId = button.getAttribute('data-avis-id');
               const currentVisibility = JSON.parse(button.getAttribute('data-avis-visible'));
@@ -76,16 +90,13 @@ async function voirAvis() {
                   };
 
                   const response = await fetch(`http://127.0.0.1:8000/api/avis/${avisId}`, putRequestOptions);
-                  if (!response.ok) {
-                      throw new Error(`Failed to toggle visibility for avis ${avisId}`);
-                  }
+                  if (!response.ok) throw new Error(`Failed to toggle visibility for avis ${avisId}`);
 
-                  // Mettre à jour l'attribut data-avis-visible du bouton pour refléter la nouvelle valeur
                   button.setAttribute('data-avis-visible', newValue);
                   button.textContent = newValue ? 'Cacher' : 'Afficher';
                   button.className = newValue ? 'btn btn-danger toggle-avis-button' : 'btn btn-success toggle-avis-button';
 
-                } catch (error) {
+              } catch (error) {
                   console.error('Error:', error);
                   alert(`An error occurred while toggling visibility for avis ${avisId}`);
               }
@@ -98,193 +109,58 @@ async function voirAvis() {
   }
 }
 
+async function voirService() {
+  const myHeaders = new Headers();
+  myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
 
-
-if (document.readyState === "loading") {
-  // Loading hasn't finished yet
-  animal.addEventListener('DOMContentLoaded', VoirAnimal);
-} else {
-  // `DOMContentLoaded` has already fired
-  VoirAnimal();
-}
-async function fetchData(url, headers) {
   const requestOptions = {
     method: "GET",
-    headers: headers,
+    headers: myHeaders,
     redirect: "follow",
-    mode: "cors",
   };
 
-  const response = await fetch(url, requestOptions);
-  if (response.ok) {
-    return response.json();
-  } else {
-    throw new Error("Impossible de récupérer les informations utilisateur");
-  }
-}
-
-async function VoirAnimal() {
-  const prenomFilter = document.getElementById("prenomFilter").value;
-
-  // Ne fait rien si aucun prénom n'est sélectionné
-  if (!prenomFilter) {
-    document.getElementById("Animal").innerHTML = '';
-    return;
-  }
-
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
-
   try {
-    // Utilisez l'API appropriée pour récupérer les détails des animaux
-    const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
-    updateAnimalContent(result, prenomFilter);
+    const response = await fetch("http://127.0.0.1:8000/api/service/get", requestOptions);
+    if (!response.ok) {
+      throw new Error("Impossible de récupérer les informations utilisateur");
+    }
+    const items = await response.json();
+    updateServiceContent(items);
   } catch (error) {
-    console.error(error);
+    console.error('Error:', error);
   }
 }
 
-function updateAnimalContent(items, prenomFilter) {
-  const filteredItems = items.filter(item => item.prenom === prenomFilter);
 
-  let content = '';
-  filteredItems.forEach(item => {
-    content += `
-      <div class="d-flex justify-content">
-        <table class="table container">
-          <tbody>
-            <tr>
-              <th scope="row" class="text-dark">RACE</th>
-              <td class="text-dark">${item.Race.label}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-dark">Habitats</th>
-              <td class="text-dark">${item.Habitat.nom}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-dark">PRENOM</th>
-              <td class="text-dark">${item.prenom}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-dark">ETAT de l'animal</th>
-              <td class="text-dark">${item.etat}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-dark">La nourriture proposée</th>
-              <td class="text-dark">${item.Nourriture.nourriture}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-dark">Quantité du dernier repas</th>
-              <td class="text-dark">${item.Nourriture.grammage}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-dark">Dernier passage</th>
-              <td class="text-dark">${item.Nourriture.date}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-dark">Etat de l'animal</th>
-              <td class="text-dark">${item.detail}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>`;
-  });
-
-  document.getElementById("Animal").innerHTML = content;
-}
-
-function updatePrenomFilter(items) {
-  const prenomFilter = document.getElementById("prenomFilter");
-  const prénoms = [...new Set(items.map(item => item.prenom))];
-
-  prenomFilter.innerHTML = '<option value="">Sélectionnez un prénom</option>';
-  prénoms.forEach(prenom => {
-    const option = document.createElement("option");
-    option.value = prenom;
-    option.textContent = prenom;
-    prenomFilter.appendChild(option);
-  });
-}
-
-async function fetchAndPopulatePrenomFilter() {
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
-
-  try {
-    const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
-    updatePrenomFilter(result);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener('DOMContentLoaded', fetchAndPopulatePrenomFilter);
-} else {
-  fetchAndPopulatePrenomFilter();
-}
-
-  
-
-
+// Fonction pour afficher et modifier les services
 
 function updateServiceContent(items) {
   if (items.length >= 3) {
-    Service4.innerHTML = `
-      <div class="text-dark">
-        <h2 class="mb-4 col">${items[0].nom}</h2>
-        <p>${items[0].description}</p>
-        <form id="updateForm-4" class="update-form">
-          <div class="form-group">
-            <label for="titre-4">Titre:</label>
-            <input type="text" id="titre-4" name="titre" class="form-control" value="${items[0].nom}">
-          </div>
-     <div class="form-group">
-            <label for="commentaire-4">Commentaire:</label>
-            <textarea  id="commentaire-4" name="commentaire" class="form-control" rows="5" >${items[0].description}</textarea>
-          </div>
-          <button type="button" class="btn btn-primary" onclick="submitUpdate(${items[0].id}, 4)">Mettre à jour</button>
-        </form>
-      </div>`;
-      
-    Service5.innerHTML = `
-      <div class="text-dark">
-        <h2 class="mb-4 col">${items[1].nom}</h2>
-        <p>${items[1].description}</p>
-        <form id="updateForm-5" class="update-form">
-          <div class="form-group">
-            <label for="titre-5">Titre:</label>
-            <input type="text" id="titre-5" name="titre" class="form-control" value="${items[1].nom}">
-          </div>
-     <div class="form-group">
-            <label for="commentaire-5">Commentaire:</label>
-            <textarea  id="commentaire-5" name="commentaire" class="form-control" rows="5" >${items[1].description}</textarea>
-          </div>
-          <button type="button" class="btn btn-primary" onclick="submitUpdate(${items[1].id}, 5)">Mettre à jour</button>
-        </form>
-      </div>`;
-      
-    Service6.innerHTML = `
-      <div class="text-dark">
-        <h2 class="mb-4 col">${items[2].nom}</h2>
-        <p>${items[2].description}</p>
-        <form id="updateForm-6" class="update-form">
-          <div class="form-group">
-            <label for="titre-6">Titre:</label>
-            <input type="text" id="titre-6" name="titre" class="form-control" value="${items[2].nom}">
-          </div>
-     <div class="form-group">
-            <label for="commentaire-6">Commentaire:</label>
-            <textarea  id="commentaire-6" name="commentaire" class="form-control" rows="5" >${items[2].description}</textarea>
-          </div>
-          <button type="button" class="btn btn-primary" onclick="submitUpdate(${items[2].id}, 6)">Mettre à jour</button>
-        </form>
-      </div>`;
+    Service4.innerHTML = createServiceHTML(items[0], 4);
+    Service5.innerHTML = createServiceHTML(items[1], 5);
+    Service6.innerHTML = createServiceHTML(items[2], 6);
   } else {
     console.error("Moins de trois services trouvés.");
   }
+}
+
+function createServiceHTML(item, formNumber) {
+  return `
+    <div class="text-dark">
+      <h2 class="mb-4 col">${item.nom}</h2>
+      <p>${item.description}</p>
+      <form id="updateForm-${formNumber}" class="update-form">
+        <div class="form-group">
+          <label for="titre-${formNumber}">Titre:</label>
+          <input type="text" id="titre-${formNumber}" name="titre" class="form-control" value="${item.nom}">
+        </div>
+        <div class="form-group">
+          <label for="commentaire-${formNumber}">Commentaire:</label>
+          <textarea id="commentaire-${formNumber}" name="commentaire" class="form-control" rows="5">${item.description}</textarea>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="submitServiceUpdate(${item.id}, ${formNumber})">Mettre à jour</button>
+      </form>
+    </div>`;
 }
 
 
@@ -300,6 +176,64 @@ async function submitUpdate(serviceId, formNumber) {
     await ModifierServices(serviceId, titre, commentaire);
     alert("Les informations du service ont été mises à jour avec succès");
     // Actualiser la liste des services après la mise à jour
+    voirService();
+  } catch (error) {
+    alert("Erreur lors de la mise à jour des informations du service");
+    console.error(error);
+  }
+}
+(
+async function ModifierServices(serviceId, titre, commentaire) {
+  const myHeaders = new Headers();
+  myHeaders.append("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
+  myHeaders.append("Content-Type", "application/json");
+
+  const raw = JSON.stringify({
+    "nom": titre,
+    "description": commentaire
+  });
+
+  const requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+  };
+
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/api/service/${serviceId}`, requestOptions);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const result = await response.text();
+    console.log(result);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+})
+
+
+if (document.readyState === "loading") {
+  document.addEventListener('DOMContentLoaded', voirService);
+} else {
+  voirService();
+}
+async function submitServiceUpdate(serviceId, formNumber) {
+  const form = document.getElementById(`updateForm-${formNumber}`);
+  const formData = new FormData(form);
+  const titre = formData.get('titre');
+  const commentaire = formData.get('commentaire');
+
+  if (!titre || !commentaire) {
+    alert("Les champs titre et commentaire ne peuvent pas être vides");
+    return;
+  }
+
+  console.log(`Updating Service ID: ${serviceId} with Title: ${titre}, Comment: ${commentaire}`);
+
+  try {
+    await ModifierServices(serviceId, titre, commentaire);
+    alert("Les informations du service ont été mises à jour avec succès");
     voirService();
   } catch (error) {
     alert("Erreur lors de la mise à jour des informations du service");
@@ -336,36 +270,194 @@ async function ModifierServices(serviceId, titre, commentaire) {
   }
 }
 
+  
 
-const Service4 = document.getElementById("service4");
-const Service5 = document.getElementById("service5");
-const Service6 = document.getElementById("service6");
+// Fonction pour voir et modifier mes animaux 
 
-if (document.readyState === "loading") {
-  document.addEventListener('DOMContentLoaded', voirService);
-} else {
-  voirService();
-}
 
-async function voirService() {
-  const myHeaders = new Headers();
-  myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
-
-  const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    redirect: "follow",
-    mode: "cors",
-  };
-
-  try {
-    const response = await fetch("http://127.0.0.1:8000/api/service/get", requestOptions);
-    if (!response.ok) {
+  if (document.readyState === "loading") {
+    // Loading hasn't finished yet
+    animal.addEventListener('DOMContentLoaded', VoirAnimal);
+  } else {
+    // `DOMContentLoaded` has already fired
+    VoirAnimal();
+  }
+  
+  
+  async function fetchData(url, headers) {
+    const requestOptions = {
+      method: "GET",
+      headers: headers,
+      redirect: "follow",
+    };
+  
+    const response = await fetch(url, requestOptions);
+    if (response.ok) {
+      return response.json();
+    } else {
       throw new Error("Impossible de récupérer les informations utilisateur");
     }
-    const items = await response.json();
-    updateServiceContent(items);
-  } catch (error) {
-    console.error('Error:', error);
   }
+  
+  async function VoirAnimal() {
+    const prenomFilter = document.getElementById("prenomFilter").value;
+  
+    if (!prenomFilter) {
+      document.getElementById("Animal").innerHTML = '';
+      return;
+    }
+  
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+  
+    try {
+      const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
+      updateAnimalContent(result, prenomFilter);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  function updatePrenomFilter(items) {
+    const prenomFilter = document.getElementById("prenomFilter");
+    const prénoms = [...new Set(items.map(item => item.prenom))];
+  
+    prenomFilter.innerHTML = '<option value="">Sélectionnez un prénom</option>';
+    prénoms.forEach(prenom => {
+      const option = document.createElement("option");
+      option.value = prenom;
+      option.textContent = prenom;
+      prenomFilter.appendChild(option);
+    });
+  }
+  
+  async function fetchAndPopulatePrenomFilter() {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+  
+    try {
+      const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
+      updatePrenomFilter(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  if (document.readyState === "loading") {
+    document.addEventListener('DOMContentLoaded', fetchAndPopulatePrenomFilter);
+  } else {
+    fetchAndPopulatePrenomFilter();
+  }
+  
+    
+  async function updateAnimal(animalId, updatedData) {
+    const url = `http://127.0.0.1:8000/api/animal/${animalId}`;
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+
+    const requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: JSON.stringify(updatedData),
+        redirect: "follow",
+    };
+
+    try {
+        const response = await fetch(url, requestOptions);
+        if (response.ok) {
+            console.log("Les informations de l'animal ont été mises à jour avec succès.");
+        } else {
+            throw new Error("Erreur lors de la mise à jour des informations de l'animal");
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+  
+    
+  
+function updateAnimalContent(items, prenomFilter) {
+  const filteredItems = items.filter(item => item.prenom === prenomFilter);
+
+  let content = '';
+  filteredItems.forEach(item => {
+      const createdAt = item.created_at ? item.created_at.split('T')[0] : '';
+      const feedingTime = item.feeding_time ? item.feeding_time.split('T')[1].slice(0, 5) : '';
+
+      content += `
+      <div class="d-flex justify-content flex-column">
+        <table class="table container">
+          <tbody class="text-center ">
+            <tr>
+              <th scope="row" class="text-dark">PRENOM</th>
+              <td class="text-dark"><p type="text" id="prenom_${item.id}" class=" text-center text-dark" readonly>${item.prenom}</p></td>
+            </tr>
+             <tr>
+              <th scope="row" class="text-dark">Etat</th>
+              <td class="text-dark"><p type="text" id="etat${item.id}" class=" text-center text-dark" readonly>${item.etat}</p></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-dark">Commentaire sur l'habitat</th>
+              <td class="text-dark"><p type="text" id="commentaire${item.id}" class=" text-center text-dark" readonly>${item.habitat.commentaire_habitat}</p></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-dark">Date du dernier repas</th>
+              <td class="text-dark"><input type="date" id="created_at_${item.id}" class="border border-primary rounded text-center text-dark" value="${createdAt}"></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-dark">Heure du repas</th>
+              <td class="text-dark"><input type="time" id="feeding_time_${item.id}" class="border border-primary rounded text-center text-dark" value="${feedingTime}"></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-dark">La nourriture proposée</th>
+              <td class="text-dark"><input type="text" id="nourriture_${item.id}" class="border border-primary rounded text-center text-dark" value="${item.nourriture}"></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-dark">Quantité du dernier repas</th>
+              <td class="text-dark"><input type="text" id="grammage_${item.id}" class="border border-primary rounded text-center text-dark" value="${item.grammage}"></td>
+            </tr>
+
+            <tr>
+              <th scope="row" class="text-dark">Image</th>
+              <td class="text-dark">
+                <img src="data:image/jpeg;base64,${item.image_data}" alt="Image de ${item.prenom}" class="img-thumbnail w-50" id="image_${item.id}">
+                <input type="file" id="image_data_${item.id}" class="form-control mt-2">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="container mb-2">
+          <button onclick="submitUpdate(${item.id})" class="btn btn-primary text-center">Modifier</button>
+        </div>
+      </div>`;
+  });
+
+  document.getElementById("Animal").innerHTML = content;
+}
+  
+  async function submitUpdate(animalId) {
+    const updatedData = {
+        nourriture: document.getElementById(`nourriture_${animalId}`).value,
+        grammage: document.getElementById(`grammage_${animalId}`).value,
+        created_at: document.getElementById(`created_at_${animalId}`).value,
+        feeding_time: document.getElementById(`feeding_time_${animalId}`).value
+    };
+
+    const fileInput = document.getElementById(`image_data_${animalId}`);
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = async () => {
+            updatedData.image_data = reader.result.split(',')[1]; // Extract Base64 part
+            await updateAnimal(animalId, updatedData);
+        };
+
+        reader.readAsDataURL(file); // Read file as data URL
+    } else {
+        await updateAnimal(animalId, updatedData);
+    }
 }

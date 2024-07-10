@@ -1,120 +1,65 @@
-<!--Voir l'ensemble des comptes rendus + 2 filtres-->
+<div class="d-flex justify-content-center row row-cols-lg-5">
 
-<p>
-  <button class="btn btn-primary ms-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+     <!--Accordéon pour afficher le tableau de bord (rapport vétérianire)-->
+<p class="col-12">
+  <button class="btn btn-primary ms-5 mt-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
     Afficher les comptes rendus
   </button>
 </p>
+
+   <!--Accordéon pour l'ouverture des habitats-->
+<p class="accordion-header col-12" id="flush-headingHabitat">
+  <button class="btn btn-primary collapsed m-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHabitat" aria-expanded="false" aria-controls="flush-collapseHabitat">
+   Afficher les habitats</button></p>
+
+
+   <!--Accordéon pour Inscrire un nouvel utilisateur-->
+<p class="accordion-header col-12" id="flush-headingUser">
+  <button class="btn btn-primary collapsed m-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseUser" aria-expanded="false" aria-controls="flush-collapseUser">
+  Inscrire un nouvel utilisateur</button></p>
+
+<!--Accordéon pour l'ouverture des Horaires-->
+  <p class="accordion-header col-12" id="flush-headingHoraire">
+    <button class="btn btn-primary collapsed m-5  " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHoraire" aria-expanded="false" aria-controls="flush-collapseHoraire">
+     Afficher les horaires</button></p>
+
+<!--Accordéon pour l'ouverture des Services-->
+<p class="accordion-header col-12" id="flush-headingAvis">
+  <button class="btn btn-primary collapsed m-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseServices" aria-expanded="false" aria-controls="flush-collapseServices">
+   Afficher les services</button></p>
+  </div>
+
+<!--Voir l'ensemble des comptes rendus + 2 filtres-->
 <div class="container-fluid">
   <div class="collapse collapse-horizontal" id="collapseWidthExample">
-    <div class="card card-body container-fluid text-dark">
-      <div class="d-flex justify-content-center m-2 ">
-        <input class="px-5 m-2 border" type="text" id="filterByDate" placeholder="Filtrer par date (YYYY-MM-DD)">
-        <p class="m-2">où</p>
-        <input class="px-5 m-2 border" type="text" id="filterByAnimal" placeholder="Nom d'un animal">
-      </div>
-      <div class="d-flex justify-content-center">
-      <button class="col-lg-2 btn btn-primary m-2 " id="applyFilters">Appliquer les filtres</button>
+    <div class="container text-dark text-center border border-primary border-3 rounded p-3 mt-5">
+      <h3>Voir les rapports des vétérinaires</h3>
+          
+      <label for="dateFilter">Date :</label>
+      <input type="date" id="dateFilter" placeholder="Entrez la date" class="border border-primary rounded me-4">
+
+      <label for="prenomFilter">Prénom de l'animal :</label>
+      <input type="text" id="prenomFilter" placeholder="Entrez le prénom de l'animal" class="border border-primary rounded m-4">
+
+      <button id="filterButton" class="btn btn-primary ms-4">Filtrer</button>
+
+      <div id="rapport" ></div>
+</div>
+
     </div>
-      <div class="list-group list-group-numbered overflow-scroll" id="rapportVeterinaire1" style="height: 300px;"></div>    </div>
+      <hr>
   </div>
+</div>
 </div>
 
 
-<!--Formulaire pour inscrire un employé ou un vétérinaire-->
-<div class="container text-center text-dark ">
-
-  <div class="d-flex flex-column align-items-center">
-    <h2 class="accordion-header" id="flush-headingHabitat">
-      <button class="btn btn-primary collapsed fs-4 mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHabitat" aria-expanded="false" aria-controls="flush-collapseHabitat">
-       Afficher les habitats</button></h2>
-        <div id="flush-collapseHabitat" class="accordion-collapse collapse" aria-labelledby="flush-headingHabitat" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body ">
-
-            <div class="row row-cols-lg-3 mb-5">
-              <div class="border rounded">
-                <h2 id="TitreSavane"></h2>
-                <p id="DescriptionSavane"></p>
-              </div> 
-              
-              <div class="border rounded">
-                <h2 id="TitreMarais"></h2>
-                <p id="DescriptionMarais"></p>
-              </div>
-
-              <div class="border rounded">
-                <h2 id="TitreJungle"></h2>
-                <p id="DescriptionJungle"></p>
-              </div>
-            </div>
-
-          <div>
-          <div id="flush-collapseHabitat" class="accordion-collapse collapse" aria-labelledby="flush-headingHabitat" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-              <div class="row row-cols-lg-3" >
-          <div>    
-            <form class=" text-dark fs-4 contour form-control mb-5 " id="formulaireHabitat1">
-              <div class=" text-center container-fluid">
-                  <label for="TitreHabitatInput1" class="form-label m-3">Titre de l'habitat</label>
-                  <input type="text" class="form-control" id="TitreHabitatInput1" placeholder="Savane" name="TitreHabitat1">
-            
-            
-                  <label for="HabitatInput1" class="form-label m-3">Description de l'habitat</label>
-                  <input type="text" class="form-control" id="HabitatInput1" placeholder="Les marais sont...." name="DescriptionHabitat1">
-            
-                <button type="button" class="btn btn-primary my-5" id="btnHabitat1">Modifier l'habitat</button>
-                </div>
-            </form>
-          </div> 
-
-          <div>
-            <form class=" text-dark fs-4 contour form-control mb-5 " id="formulaireHabitat2">
-              <div class=" text-center container-fluid">
-                  <label for="TitreHabitatInput2" class="form-label m-3">Titre de l'habitat</label>
-                  <input type="text" class="form-control" id="TitreHabitatInput2" placeholder="Savane" name="TitreHabitat2">
-            
-            
-                  <label for="HabitatInput2" class="form-label m-3">Description de l'habitat</label>
-                  <input type="text" class="form-control" id="HabitatInput2" placeholder="Les marais sont...." name="DescriptionHabitat2">
-            
-                <button type="button" class="btn btn-primary my-5" id="btnHabitat2">Modifier l'habitat</button>
-                </div>
-            </form>
-          </div> 
-<div>
-            <form class=" text-dark fs-4 contour form-control mb-5 " id="formulaireHabitat3">
-              <div class=" text-center container-fluid">
-                  <label for="TitreHabitatInput" class="form-label m-3">Titre de l'habitat</label>
-                  <input type="text" class="form-control" id="TitreHabitatInput" placeholder="Savane" name="TitreHabitat3">
-            
-            
-                  <label for="HabitatInput3" class="form-label m-3">Description de l'habitat</label>
-                  <input type="text" class="form-control" id="HabitatInput3" placeholder="Les marais sont...." name="DescriptionHabitat3">
-            
-                <button type="button" class="btn btn-primary my-5" id="btnHabitat3">Modifier l'habitat</button>
-                </div>
-            </form>           
-  </div>
-</div>         
-      </div>
-     </div>
-    </div>
-  </div>
-  <hr>
-</div>
-
-
-  
+    <!--Formulaire pour inscrire un nouvel utilisateur-->
   <div class="d-flex flex-column ">
-  <h2 class="accordion-header" id="flush-headingAvis">
-    <button class="btn btn-primary collapsed fs-4 mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAvis" aria-expanded="false" aria-controls="flush-collapseAvis">
-    Inscrire un nouvel utilisateur</button></h2>
-
-  <div id="flush-collapseAvis" class="accordion-collapse collapse" aria-labelledby="flush-headingAvis" data-bs-parent="#accordionFlushExample">
+  <div id="flush-collapseUser" class="accordion-collapse collapse" aria-labelledby="flush-headingUser" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
-        <form class="text-dark fs-4 contour form-control" id="formulaireInscription">
+        <form class="text-dark fs-4 contour form-control container" id="formulaireInscription">
           <div class="container text-center">
-              <!--Inscription prenom-->
+            
               <label for="PrenomInput" class="form-label m-3">Votre prénom</label>
               <input type="text" class="form-control" id="PrenomInput" placeholder="John" name="prenom">
         
@@ -137,71 +82,99 @@
             <button type="button" class="btn btn-primary my-5" id="btnInscription">Inscription</button>
             </div>
          </form>        
+         <hr>
     </div>
   </div>
 </div>
 
-<!--Modifications des horaires d'ouvertures-->
-<div class="d-flex flex-column justify-content-center container-fluid">
-  <h2 class="accordion-header" id="flush-headingHoraire">
-    <button class="btn btn-primary collapsed fs-4 mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHoraire" aria-expanded="false" aria-controls="flush-collapseHoraire">
-     Afficher les horaires</button></h2>
-      <div id="flush-collapseHoraire" class="accordion-collapse collapse" aria-labelledby="flush-headingHoraire" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body ">
-<div>
-  <form id="formulaireHoraire" class="contour form-control">
-    <div class="m-3">
-    <h4><label for="HoraireInput" class="form-label text-dark">Modification des horaires</label></h4>
-    <input type="text" class="form-control" id="HoraireInput" placeholder="Nos horaires d'ouvertures sont....." name="horaire">
 
 
-    <button type="button" class="btn btn-primary mt-3" id="PutHoraireBouton" name="horaire">Confirmer les nouveaux horaires</button>
+<!-- Modifications des horaires d'ouverture -->
+<div class="container my-3">
+  <div id="flush-collapseHoraire" class="accordion-collapse collapse" aria-labelledby="flush-headingHoraire">
+    <div class="accordion-body">
+      <form id="formulaireHoraire">
+        <h4><label for="titreInput">Modification des horaires</label></h4>
+        <div class="form-group">
+          <label for="titreInput">Titre</label>
+          <input type="text" class="form-control" id="titreInput" name="titre">
+        </div>
+        <div class="form-group mt-2">
+          <label for="messageInput">Message</label>
+          <textarea class="form-control" id="messageInput" name="message" rows="3"></textarea>
+        </div>
+        <div class="form-group mt-2">
+          <label for="heureDebutInput">Heure de début</label>
+          <input type="time" class="form-control" id="heureDebutInput" name="heureDebut">
+        </div>
+        <div class="form-group mt-2">
+          <label for="heureFinInput">Heure de fin</label>
+          <input type="time" class="form-control" id="heureFinInput" name="heureFin">
+        </div>
+        <div class="form-group mt-2">
+          <label for="jourInput">Jour</label>
+          <input type="text" class="form-control" id="jourInput" name="jour">
+        </div>
+        <button type="button" class="btn btn-primary mt-3" id="PutHoraireBouton">Confirmer les nouveaux horaires</button>
+      </form>
+      <hr>
+    </div>
   </div>
-  </form>
-
-</div>
-</div>
-</div>
 </div>
 
-<!--Accordéon pour l'ouverture des Services-->
-<div class="container">
 
 
-  <div class="text-center d-flex flex-column ">
-    <h2 class="accordion-header" id="flush-headingAvis">
-       <button class="btn btn-primary collapsed fs-4 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseServices" aria-expanded="false" aria-controls="flush-collapseServices">
-        Afficher <br> les services</button></h2>
-     <div id="flush-collapseServices" class="accordion-collapse collapse" aria-labelledby="flush-headingServices" data-bs-parent="#accordionFlushExample">
-         <div class="accordion-body">
+    <div id="flush-collapseServices" class="accordion-collapse collapse container mt-3" aria-labelledby="flush-headingServices" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
 
 
-
-<div class="row row-cols-lg-3 border rounded d-flex align-items-end">
-  <!--1er Image-->
-          <div class="col">
-            <div > <img class="img-thumbnail" src="/images/visiteGuide.jpg" alt="" ></div>
-            <div id="service4" class="d-flex justify-content-around"></div>      
-          </div>
-  <!--2éme Image-->
-          <div  class="col">
-            <div ><img class="img-thumbnail" src="/images/restauration.jpg" alt="" ></div>
-            <div id="service5" class="d-flex justify-content-around"></div>
-          </div>
-  <!--3éme Image-->
-          <div class="col">
-            <div ><img class="img-thumbnail" src="/images/train.jpg" alt="" ></div>
-            <div id="service6" class="d-flex justify-content-around"></div>      
-          </div>
-
-  </div>
-
-
-             
-             
-
-
-
-              </div>   
+              <div class="row row-cols-lg-3 border rounded d-flex align-items-end">
+                <!--1er Image-->
+                        <div class="col">
+                          <div > <img class="img-thumbnail" src="/images/visiteGuide.jpg" alt="" ></div>
+                          <div id="service4" class="d-flex justify-content-around"></div>      
+                        </div>
+                <!--2éme Image-->
+                        <div  class="col">
+                          <div ><img class="img-thumbnail" src="/images/restauration.jpg" alt="" ></div>
+                          <div id="service5" class="d-flex justify-content-around"></div>
+                        </div>
+                <!--3éme Image-->
+                        <div class="col">
+                          <div ><img class="img-thumbnail" src="/images/train.jpg" alt="" ></div>
+                          <div id="service6" class="d-flex justify-content-around"></div>      
+                        </div>
+                </div>
+                <hr></div>   
+      </div>   
 
         
+
+
+
+
+
+ <!--Formulaire voir et modifier les habitats-->
+
+            <div id="flush-collapseHabitat" class="accordion-collapse collapse container" aria-labelledby="flush-headingHabitat" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body ">
+
+                    <div class="row row-cols-lg-3 border rounded d-flex align-items-end"> 
+    <!-- Habitat savane-->
+                      <div class="col">
+                        <div> <img class="img-thumbnail" src="/images/Savane_africaine.jpg" alt="" ></div>
+                        <div id="habitat1" class="d-flex justify-content-around"></div>      
+                      </div>
+    <!-- Habitat marais-->
+                      <div class="col">
+                        <div> <img class="img-thumbnail" src="/images/marais.jpg" alt="" ></div>
+                        <div id="habitat2" class="d-flex justify-content-around"></div>      
+                      </div>
+    <!-- Habitat jungle-->
+                      <div class="col">
+                        <div> <img class="img-thumbnail" src="/images/jungle.jpg" alt="" ></div>
+                        <div id="habitat3" class="d-flex justify-content-around"></div>      
+                      </div>
+                    </div> 
+              <div>    
+           </div>

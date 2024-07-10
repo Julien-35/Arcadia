@@ -9,9 +9,9 @@ export const allRoutes = [
     new Route("/jungle", "La jungle", "/pages/habitats/jungle.html", []),
     new Route("/services", "Nos services", "/pages/services.html", [], "js/services.js" ),
     new Route("/contact", "Contact", "/pages/contact.html", [],"js/contact.js"),
-    new Route("/signin", "Connexion", "/pages/signin.html", ["disconnected"],"js/signin.js" ),
-    new Route("/signup", "Inscription", "/pages/connecte/signup.html",[],"js/signup.js"),
-    new Route("/admin", "Administrateur", "/pages/connecte/admin.html",[],"js/admin.js"),
+    new Route("/signin", "Connexion", "/pages/signin.html", ["disconnected"],"js/auth//signin.js" ),
+    new Route("/signup", "Inscription", "/pages/connecte/signup.html",[],"js//auth/signup.js"),
+    new Route("/admin", "Administrateur", "/pages/connecte/admin.html", [], "/js/admin.js"),
     new Route("/employe", "Employe", "/pages/connecte/employe.html",[],"js/employe.js"),
     new Route("/veterinaire", "Veterinaire", "/pages/connecte/veterinaire.html",[],"js/veterinaire.js"),
 

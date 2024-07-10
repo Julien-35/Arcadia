@@ -7,22 +7,16 @@ const route404 = new Route("404", "Page introuvable", "/pages/404.html", []);
 // Fonction pour récupérer la route correspondant à une URL donnée
 const getRouteByUrl = (url) => {
   let currentRoute = null;
-  // Parcours de toutes les routes pour trouver la correspondance
   allRoutes.forEach((element) => {
-    if (element.url == url) {
+    if (element.url === url) {
       currentRoute = element;
     }
   });
-  // Si aucune correspondance n'est trouvée, on retourne la route 404
-  if (currentRoute != null) {
-    return currentRoute;
-  } else {
-    return route404;
-  }
+  return currentRoute || route404;
 };
 
 // Fonction pour charger le contenu de la page
-const LoadContentPage = async () => {
+  const LoadContentPage = async () => {
   const path = window.location.pathname;
   // Récupération de l'URL actuelle
   const actualRoute = getRouteByUrl(path);
@@ -34,27 +28,25 @@ const LoadContentPage = async () => {
   document.getElementById("main-page").innerHTML = html;
 
 
-  //Vérifier les droits d'accès à la page
+  // Vérifier les droits d'accès à la page
   const allRolesArray = actualRoute.authorize;
-  if(allRolesArray.length > 0){
-    if(allRolesArray.includes("disconnected")){
-      if(isConnected()){
-              // Si on est connecté, renvoi sur la page d'accueil si on essai d'aller sur la page signin 
+  console.log("All Roles Array:", allRolesArray);
 
+  if (allRolesArray.length > 0) {
+    if (allRolesArray.includes("disconnected")) {
+      if (isConnected()) {
         window.location.replace("/home");
       }
-    }
-    else{
+    } else {
       const roleUser = getRole();
-      if(!allRolesArray.includes(roleUser)){
+      console.log("User Role:", roleUser);
+      if (!allRolesArray.includes(roleUser)) {
         window.location.replace("/home");
       }
     }
   }
-
   // Ajout du contenu JavaScript
-  if (actualRoute.pathJS != "") {
-    // Création d'une balise script
+  if (actualRoute.pathJS !== "") {
     var scriptTag = document.createElement("script");
     scriptTag.setAttribute("type", "text/javascript");
     scriptTag.setAttribute("src", actualRoute.pathJS);
@@ -62,7 +54,6 @@ const LoadContentPage = async () => {
     // Ajout de la balise script au corps du document
     document.querySelector("body").appendChild(scriptTag);
   }
-
   // Changement du titre de la page
   document.title = actualRoute.title + " - " + websiteName;
 

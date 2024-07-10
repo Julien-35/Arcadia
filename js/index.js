@@ -1,7 +1,5 @@
 const SeeDates = document.getElementById("date");
 
-
-
 if (document.readyState === "loading") {
   VoirDate();
 }
@@ -34,9 +32,11 @@ async function VoirDate(){
         result.forEach(item => {
           content += 
           `
-          <h3 class="fw-bold fs-4">TITRE</h3>
-          <p class="fw-normal fs-4 pt-3">${item.description}</p>
-            `
+          <h3 class="fw-bold fs-4">${item.titre}</h3>
+          <p class="fw-normal fs-4">${item.message}</p>
+          <p class="fw-normal fs-4" >${item.heureDebut} - ${item.heureFin}</p>
+          <p class="fw-normal fs-4" >${item.jour} </p>
+`
         });
         
         SeeDates.innerHTML = content;

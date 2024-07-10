@@ -1,21 +1,41 @@
-<p>
-  <button class="btn btn-primary ms-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-    Afficher les rapports
-  </button>
-</p>
-<div class="container-fluid">
-  <div class="collapse collapse-horizontal" id="collapseWidthExample">
-    <div class="card card-body container-fluid text-dark">
-      <div class="d-flex justify-content-center m-2 ">
-        <input class="px-5 m-2 border" type="text" id="filterByDate" placeholder="Filtrer par date (YYYY-MM-DD)">
-        <p class="m-2">où</p>
-        <input class="px-5 m-2 border" type="text" id="filterByAnimal" placeholder="Nom d'un animal">
-      </div>
-      <div class="d-flex justify-content-center">
-      <button class="col-lg-2 btn btn-primary m-2 " id="applyFilters">Appliquer les filtres</button>
-    </div>
-      <div class="list-group list-group-numbered overflow-scroll" id="rapportVeterinaire1" style="height: 300px;"></div>    </div>
-  </div>
+<div class="container">
+    <h2>Créer un nouvel animal</h2>
+    <form id="createAnimalForm">
+        <!-- Form fields here -->
+        <div>
+            <label for="prenom">Prénom:</label>
+            <input type="text" id="prenom" name="prenom" required>
+        </div>
+        <div>
+            <label for="etat">État:</label>
+            <input type="text" id="etat" name="etat" required>
+        </div>
+        <div>
+            <label for="nourriture">Nourriture:</label>
+            <input type="text" id="nourriture" name="nourriture" required>
+        </div>
+        <div>
+            <label for="grammage">Grammage:</label>
+            <input type="text" id="grammage" name="grammage" required>
+        </div>
+        <div>
+            <label for="habitatSelect">Habitat:</label>
+            <select id="habitatSelect" name="habitat_id" required>
+                <option value="">Sélectionnez un habitat</option>
+            </select>
+        </div>
+        <div>
+            <label for="raceSelect">Race:</label>
+            <select id="raceSelect" name="race_id">
+                <option value="">Sélectionnez une race</option>
+            </select>
+            <input type="text" id="newRace" name="newRace" placeholder="Ou entrez une nouvelle race">
+        </div>
+        <div>
+            <label for="image_data">Image:</label>
+            <input type="file" id="image_data" name="image_data" accept="image/*" required>
+        </div>
+        <button type="submit">Créer Animal</button>
+    </form>
+    <div id="message"></div> <!-- Message display element -->
 </div>
-
-

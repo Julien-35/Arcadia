@@ -1,23 +1,21 @@
-
-
-
 <div class="container text-center text-primary">
   
-  <h2 class="accordion-header" id="flush-headingAnimal">
-    <button class="btn btn-primary collapsed fs-4 mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAnimal" aria-expanded="false" aria-controls="flush-collapseAnimal">
+  <p class="accordion-header" id="flush-headingAnimal">
+    <button class="btn btn-primary collapsed mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAnimal" aria-expanded="false" aria-controls="flush-collapseAnimal">
      Voir tout les animaux
     </button>
-  </h2>
+  </p>
   <div id="flush-collapseAnimal" class="accordion-collapse collapse" aria-labelledby="flush-headingAnimal" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
-        <select id="prenomFilter" onchange="VoirAnimal()">
-          <option value="">Sélectionnez un prénom</option>
+        <select id="prenomFilter" onchange="VoirAnimal()" class="border-primary rounded">
+          <option value="" >Sélectionnez un prénom</option>
         </select>
 
-          <div class="list-group list-group-numbered overflow-scroll" id="Animal" style="height: 300px;"></div>
+          <div class="list-group list-group-numbered overflow-scroll" id="Animal" style="height: 700px;"></div>
       </div>
   </div>
   </div>
+
 
 
     <div class="container text-center text-primary">
@@ -36,31 +34,7 @@
       </div>
 
 
-<div class="d-flex flex-column">
-  <div>
 
-<div class="d-flex flex-column align-items-center">
-
-      </h2>
-<div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingService" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body ">
-      <form class="d-flex justify-content flex-column text-center" id="putService">
-        <div class="form-group">
-          <label for="putTitre" class="pt-3 text-center">Titre du service</label>
-          <input type="text" class="form-control text-center" id="putTitre" placeholder="Ajouter un titre" name="titre">
-        </div>
-    
-        <div class="form-group">
-          <label for="putDescritpion">Descritpion</label>
-          <input type="text" size="50" style="height:200px;" class="form-control" id="putDescritpion" placeholder="Indiquer la descritpion" name="commentaire">
-        </div>
-    
-        <button type="button" class="btn btn-primary" id="PutEmployeBouton">Bouton</button>
-    </form>
-    
-       </div>
-     </div>
-   </div>
 
 
 <hr class=" w-100 my-5">
@@ -75,8 +49,6 @@
         Afficher <br> les services</button></h2>
      <div id="flush-collapseServices" class="accordion-collapse collapse" aria-labelledby="flush-headingServices" data-bs-parent="#accordionFlushExample">
          <div class="accordion-body">
-
-
 
 <div class="row row-cols-lg-3 border rounded d-flex align-items-end">
   <!--1er Image-->
