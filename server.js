@@ -11,7 +11,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Écouter sur le port défini par Heroku ou un port local
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
