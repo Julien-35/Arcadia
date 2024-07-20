@@ -1,4 +1,4 @@
-const SeeDates = document.getElementById("date");
+const seeDates = document.getElementById("date");
 
 if (document.readyState === "loading") {
   VoirDate();
@@ -39,7 +39,7 @@ async function VoirDate(){
 `
         });
         
-        SeeDates.innerHTML = content;
+        seeDates.innerHTML = content;
       })
       .catch((error) =>  
       console.log(error));

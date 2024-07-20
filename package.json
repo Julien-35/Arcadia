@@ -1,0 +1,19 @@
+{
+  "name": "arcadia",
+  "version": "1.0.0",
+  "description": "Ce site est un site vitrine pour mon ECF au sein de l'école STUDI.\r L'objectif est de créer un Zoo regroupant plusieurs fonctionnalités concernant le dossier fourni par l'école.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "npm install"
+
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
