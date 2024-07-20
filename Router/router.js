@@ -24,13 +24,12 @@ const getRouteByUrl = (url) => {
 
   // Récupération du contenu HTML de la route
   const html = await fetch(actualRoute.pathHtml).then((data) => data.text());
-  // Ajout du contenu HTML à l'élément avec l'ID "main-page"
+  // Ajout du contenu HTML à l'élément avec l'ID "main-page"  
   document.getElementById("main-page").innerHTML = html;
 
 
   // Vérifier les droits d'accès à la page
   const allRolesArray = actualRoute.authorize;
-  console.log("All Roles Array:", allRolesArray);
 
   if (allRolesArray.length > 0) {
     if (allRolesArray.includes("disconnected")) {
@@ -38,9 +37,8 @@ const getRouteByUrl = (url) => {
         window.location.replace("/home");
       }
     } else {
-      const roleUser = getRole();
-      console.log("User Role:", roleUser);
-      if (!allRolesArray.includes(roleUser)) {
+      const roleUser = getRoles();
+      if (!allRolesArray.includes(localStorage.getItem("userRole"))) {
         window.location.replace("/home");
       }
     }

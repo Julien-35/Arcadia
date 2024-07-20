@@ -7,7 +7,9 @@ if (document.readyState === "loading") {
   // `DOMContentLoaded` has already fired
   VoirAnimal();
 }
-
+function getToken() {
+  return localStorage.getItem('apiToken');
+}
 
 async function fetchData(url, headers) {
   const requestOptions = {
@@ -17,11 +19,13 @@ async function fetchData(url, headers) {
     mode: "cors",
   };
 
-  const response = await fetch(url, requestOptions);
-  if (response.ok) {
+  try {
+    const response = await fetch(url, requestOptions);
+    if (!response.ok) throw new Error("Impossible de récupérer les informations");
     return response.json();
-  } else {
-    throw new Error("Impossible de récupérer les informations");
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw error;
   }
 }
 
@@ -35,13 +39,13 @@ async function VoirAnimal() {
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+  myHeaders.append("X-AUTH-TOKEN", getToken());
 
   try {
     const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
     updateAnimalContent(result, prenomFilter);
   } catch (error) {
-    console.error(error);
+    console.error('Error:', error);
   }
 }
 
@@ -66,13 +70,13 @@ function updatePrenomFilter(items) {
 async function fetchAndPopulatePrenomFilter() {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+  myHeaders.append("X-AUTH-TOKEN", getToken());
 
   try {
     const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
     updatePrenomFilter(result);
   } catch (error) {
-    console.error(error);
+    console.error('Error:', error);
   }
 }
 
@@ -87,7 +91,7 @@ async function updateAnimal(animalId, updatedData) {
   const url = `http://127.0.0.1:8000/api/animal/${animalId}`;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+  myHeaders.append("X-AUTH-TOKEN",  getToken());
 
   const requestOptions = {
     method: "PUT",
@@ -250,7 +254,7 @@ const habitat3 = document.getElementById("habitat3");
   
 async function voirHabitat() {
   const myHeaders = new Headers();
-  myHeaders.append("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
+  myHeaders.append("X-AUTH-TOKEN",  getToken());
   myHeaders.append("Content-Type", "application/json");
 
   const requestOptions = {
@@ -302,34 +306,32 @@ function createHabitatHTML(item, formNumber) {
 async function submitHabitatUpdate(habitatId, formNumber) {
   const form = document.getElementById(`updateForms-${formNumber}`);
   const formData = new FormData(form);
-  const nom = formData.get('nom');
   const commentaireHabitat = formData.get('commentaireHabitat');
 
-  if (!nom || !commentaireHabitat) {
-    alert("Les champs nom et commentaireHabitat ne peuvent pas être vides");
+  if (!commentaireHabitat) {
+    alert("Le champ commentaire ne peut pas être vide");
     return;
   }
 
-  console.log(`Updating Habitat ID: ${habitatId} with Title: ${nom}, Commentaire Habitat: ${commentaireHabitat}`);
+  console.log(`Updating Habitat ID: ${habitatId} with Commentaire Habitat: ${commentaireHabitat}`);
 
   try {
-    await ModifierHabitat(habitatId, nom, commentaireHabitat);
+    await ModifierHabitat(habitatId, commentaireHabitat);
     alert("Les informations de l'habitat ont été mises à jour avec succès");
-    voirHabitat();
+    voirHabitat(); // Assurez-vous que cette fonction est définie et qu'elle recharge les données correctement
   } catch (error) {
     alert("Erreur lors de la mise à jour des informations de l'habitat");
     console.error(error);
   }
 }
 
-async function ModifierHabitat(habitatId, nom, commentaire_habitat) {
+async function ModifierHabitat(habitatId, commentaireHabitat) {
   const myHeaders = new Headers();
-  myHeaders.append("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
+  myHeaders.append("X-AUTH-TOKEN", getToken()); // Assurez-vous que `getToken` est défini
   myHeaders.append("Content-Type", "application/json");
 
   const raw = JSON.stringify({
-    nom: nom,
-    commentaireHabitat: commentaire_habitat
+    commentaireHabitat: commentaireHabitat
   });
 
   const requestOptions = {

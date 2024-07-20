@@ -9,6 +9,28 @@ let d5 = document.getElementById("d5");
 let d6 = document.getElementById("d6");
 
 
+function getToken() {
+  return localStorage.getItem('apiToken');
+}
+
+async function fetchData(url, headers) {
+  const requestOptions = {
+    method: "GET",
+    headers: headers,
+    redirect: "follow",
+    mode: "cors",
+  };
+
+  try {
+    const response = await fetch(url, requestOptions);
+    if (!response.ok) throw new Error("Impossible de récupérer les informations");
+    return response.json();
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw error;
+  }
+}
+
 if (document.readyState === "loading") {
    
   } else {
@@ -78,7 +100,7 @@ const TitreHabitat3 = document.getElementById("TitreJungle");
 
 async function voirHabitat() {
   const myHeaders = new Headers({
-    "X-AUTH-TOKEN": "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5",
+    "X-AUTH-TOKEN": "38f1c426526d1aeebb80d777b8733f1ef09fc484",
     "Content-Type": "application/json"
   });
 

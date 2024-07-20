@@ -38,9 +38,32 @@ if (document.readyState === "loading") {
   VoirAnimal();
 }
 
+function getToken() {
+  return localStorage.getItem('apiToken');
+}
+
+async function fetchData(url, headers) {
+  const requestOptions = {
+    method: "GET",
+    headers: headers,
+    redirect: "follow",
+    mode: "cors",
+  };
+
+  try {
+    const response = await fetch(url, requestOptions);
+    if (!response.ok) throw new Error("Impossible de récupérer les informations");
+    return response.json();
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw error;
+  }
+}
+
+
 async function voirAvis() {
   const myHeaders = new Headers();
-  myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+  myHeaders.append("X-AUTH-TOKEN", getToken());
   myHeaders.append("Content-Type", "application/json");
 
   const requestOptions = {
@@ -56,14 +79,14 @@ async function voirAvis() {
       const result = await response.json();
       let content = '';
       result.forEach(item => {
-          const buttonText = item.isVisible ? 'Cacher' : 'Afficher';
+          const buttonText = item.isVisible ? "Cacher l'avis" : "Afficher l'avis";
           const buttonClass = item.isVisible ? 'btn btn-danger toggle-avis-button' : 'btn btn-success toggle-avis-button';
           content += `
               <ol class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-start text-dark">
-                      <div class="ms-2 me-auto">
+                  <li class="list-group-item justify-content-between align-items-start text-dark">
+                      <div class="ms-2">
                           <div class="fw-bold">${item.pseudo}</div>
-                          ${item.commentaire}
+                         <p> ${item.commentaire}</p>
                       </div>
                       <button class="${buttonClass}" data-avis-id="${item.id}" data-avis-visible="${item.isVisible}">
                           ${buttonText}
@@ -93,7 +116,7 @@ async function voirAvis() {
                   if (!response.ok) throw new Error(`Failed to toggle visibility for avis ${avisId}`);
 
                   button.setAttribute('data-avis-visible', newValue);
-                  button.textContent = newValue ? 'Cacher' : 'Afficher';
+                  button.textContent = newValue ? "Cacher l'avis" : "Afficher l'avis";
                   button.className = newValue ? 'btn btn-danger toggle-avis-button' : 'btn btn-success toggle-avis-button';
 
               } catch (error) {
@@ -111,7 +134,7 @@ async function voirAvis() {
 
 async function voirService() {
   const myHeaders = new Headers();
-  myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+  myHeaders.append("X-AUTH-TOKEN", getToken());
 
   const requestOptions = {
     method: "GET",
@@ -185,7 +208,7 @@ async function submitUpdate(serviceId, formNumber) {
 (
 async function ModifierServices(serviceId, titre, commentaire) {
   const myHeaders = new Headers();
-  myHeaders.append("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
+  myHeaders.append("X-AUTH-TOKEN", getToken());
   myHeaders.append("Content-Type", "application/json");
 
   const raw = JSON.stringify({
@@ -243,7 +266,7 @@ async function submitServiceUpdate(serviceId, formNumber) {
 
 async function ModifierServices(serviceId, titre, commentaire) {
   const myHeaders = new Headers();
-  myHeaders.append("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
+  myHeaders.append("X-AUTH-TOKEN", getToken());
   myHeaders.append("Content-Type", "application/json");
 
   const raw = JSON.stringify({
@@ -309,7 +332,7 @@ async function ModifierServices(serviceId, titre, commentaire) {
   
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
   
     try {
       const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
@@ -321,13 +344,15 @@ async function ModifierServices(serviceId, titre, commentaire) {
   
   function updatePrenomFilter(items) {
     const prenomFilter = document.getElementById("prenomFilter");
-    const prénoms = [...new Set(items.map(item => item.prenom))];
+    
+    // Utiliser un Set pour stocker les prénoms uniques avec leurs races associées
+    const prénoms = [...new Set(items.map(item => `${item.prenom} (${item.race.label})`))];
   
     prenomFilter.innerHTML = '<option value="">Sélectionnez un prénom</option>';
     prénoms.forEach(prenom => {
       const option = document.createElement("option");
-      option.value = prenom;
-      option.textContent = prenom;
+      option.value = prenom.split(" (")[0]; // Extraire le prénom pour la valeur
+      option.textContent = prenom; // Afficher prénom avec race entre parenthèses
       prenomFilter.appendChild(option);
     });
   }
@@ -335,7 +360,7 @@ async function ModifierServices(serviceId, titre, commentaire) {
   async function fetchAndPopulatePrenomFilter() {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
   
     try {
       const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
@@ -356,7 +381,7 @@ async function ModifierServices(serviceId, titre, commentaire) {
     const url = `http://127.0.0.1:8000/api/animal/${animalId}`;
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     const requestOptions = {
         method: "PUT",

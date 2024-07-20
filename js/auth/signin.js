@@ -1,105 +1,104 @@
+// Références aux éléments du DOM
 const InputEmail = document.getElementById("EmailInput");
 const InputPassword = document.getElementById("PasswordInput");
 const btnConnexion = document.getElementById("btnConnexion");
-const SigninForm = document.getElementById("formulaireConnexion");
 
-// Ajoutez des écouteurs d'événements pour la validation en temps réel
+// Ajouter des écouteurs d'événements pour la validation en temps réel
 InputEmail.addEventListener("keyup", validateForm);
 InputPassword.addEventListener("keyup", validateForm);
 
-// Ajoutez un écouteur d'événement pour le bouton de connexion
+// Ajouter un écouteur d'événement pour le bouton de connexion
 btnConnexion.addEventListener("click", ConnexionUtilisateur);
 
 // Fonction pour valider le formulaire de connexion
 function validateForm() {
     const pwdOk = validatePassword(InputPassword);
     const mailOk = validateMail(InputEmail);
-
-    // Active ou désactive le bouton en fonction de la validité des champs
     btnConnexion.disabled = !(pwdOk && mailOk);
 }
 
-// Fonction pour vérifier via un Regex la configuration d'un e-mail
+// Fonction pour vérifier la configuration de l'e-mail via un regex
 function validateMail(input) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const mailUser = input.value;
-    if (emailRegex.test(mailUser)) {
-        input.classList.add("is-valid");
-        input.classList.remove("is-invalid");
-        return true;
-    } else {
-        input.classList.remove("is-valid");
-        input.classList.add("is-invalid");
-        return false;
-    }
+    const isValid = emailRegex.test(mailUser);
+    updateValidationState(input, isValid);
+    return isValid;
 }
 
 // Fonction pour définir la validité du mot de passe
 function validatePassword(input) {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
     const passwordUser = input.value;
-    if (passwordRegex.test(passwordUser)) {
+    const isValid = passwordRegex.test(passwordUser);
+    updateValidationState(input, isValid);
+    return isValid;
+}
+
+// Fonction pour mettre à jour l'état de validation d'un champ
+function updateValidationState(input, isValid) {
+    if (isValid) {
         input.classList.add("is-valid");
         input.classList.remove("is-invalid");
-        return true;
     } else {
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
-        return false;
     }
 }
 
-// Fonction pour gérer la connexion de l'utilisateur
-function ConnexionUtilisateur(event) {
+// Fonction pour la connexion de l'utilisateur
+async function ConnexionUtilisateur(event) {
     event.preventDefault();
 
-    let email = InputEmail.value;
-    let password = InputPassword.value;
+    const email = InputEmail.value.trim();
+    const password = InputPassword.value.trim();
 
-    let loginData = {
-        "email": email,
-        "password": password
+    if (!validateMail(InputEmail) || !validatePassword(InputPassword)) {
+        return; // Ne pas envoyer la requête si les validations échouent
+    }
+
+    const loginData = {
+        email: email,
+        password: password
     };
 
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    try {
+        const response = await fetch("http://127.0.0.1:8000/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(loginData),
+            mode: "cors"
+        });
 
-    let raw = JSON.stringify(loginData);
+        if (!response.ok) {
+            throw new Error('Erreur de connexion : ' + response.statusText);
+        }
 
-    let requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        mode: "cors",
-        redirect: "follow"
-    };
+        const result = await response.json();
 
-    fetch("http://127.0.0.1:8000/api/login", requestOptions)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(result => {
-            setToken(result.token); 
-            setCookie(roleCookieName, result.role, 7); 
-            
-            window.location.href = '/employe';
-        })
-        .catch(error => console.error('Error:', error));
+        // Stocker le token et les données dans le localStorage
+        localStorage.setItem('apiToken', result.apiToken); // Stocker le token d'authentification
+        localStorage.setItem('userRole', result.roles[0]); // Stocker le rôle utilisateur
+
+        // Rediriger vers la page appropriée
+        window.location.href = '/home'; // Modifier cette ligne en fonction de votre logique de redirection
+
+    } catch (error) {
+        console.error('Erreur:', error);
+        alert('Une erreur est survenue lors de la connexion.');
+    }
 }
 
+// Fonction pour obtenir le token
+function getToken() {
+    return localStorage.getItem('apiToken');
+}
 
 // Fonction pour vérifier les champs requis (par exemple, non vides)
 function validateRequire(input) {
-    if (input.value.trim() !== '') {
-        input.classList.add("is-valid");
-        input.classList.remove("is-invalid");
-        return true;
-    } else {
-        input.classList.remove("is-valid");
-        input.classList.add("is-invalid");
-        return false;
-    }
+    const isValid = input.value.trim() !== '';
+    updateValidationState(input, isValid);
+    return isValid;
 }

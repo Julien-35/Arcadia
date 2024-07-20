@@ -1,41 +1,39 @@
-<div class="container">
-    <h2>Créer un nouvel animal</h2>
-    <form id="createAnimalForm">
-        <!-- Form fields here -->
-        <div>
-            <label for="prenom">Prénom:</label>
-            <input type="text" id="prenom" name="prenom" required>
-        </div>
-        <div>
-            <label for="etat">État:</label>
-            <input type="text" id="etat" name="etat" required>
-        </div>
-        <div>
-            <label for="nourriture">Nourriture:</label>
-            <input type="text" id="nourriture" name="nourriture" required>
-        </div>
-        <div>
-            <label for="grammage">Grammage:</label>
-            <input type="text" id="grammage" name="grammage" required>
-        </div>
-        <div>
-            <label for="habitatSelect">Habitat:</label>
-            <select id="habitatSelect" name="habitat_id" required>
-                <option value="">Sélectionnez un habitat</option>
-            </select>
-        </div>
-        <div>
-            <label for="raceSelect">Race:</label>
-            <select id="raceSelect" name="race_id">
-                <option value="">Sélectionnez une race</option>
-            </select>
-            <input type="text" id="newRace" name="newRace" placeholder="Ou entrez une nouvelle race">
-        </div>
-        <div>
-            <label for="image_data">Image:</label>
-            <input type="file" id="image_data" name="image_data" accept="image/*" required>
-        </div>
-        <button type="submit">Créer Animal</button>
-    </form>
-    <div id="message"></div> <!-- Message display element -->
-</div>
+<h1>Liste des Animaux</h1>
+<select id="prenomFilter" onchange="VoirAnimal()" class="border-primary rounded">
+  <option value="" >Sélectionnez un prénom</option>
+</select>
+<div id="Animal"></div>
+  <div class="container text-dark text-center ">
+      <h3>Ajouter un Nouvel Animal</h3>
+          <form id="animalForm" class="d-flex flex-column align-items-center border border-primary fw-bold rounded">
+              <label for="prenom">Prénom:</label>
+              <input type="text" id="prenom" name="prenom" required class="border border-primary rounded"><br>
+
+              <label for="etat">État:</label>
+              <input type="text" id="etat" name="etat"><br>
+
+              <label for="nourriture">Nourriture:</label>
+              <input type="text" id="nourriture" name="nourriture" class="border border-primary rounded"><br>
+
+              <label for="grammage">Grammage:</label>
+              <input type="text" id="grammage" name="grammage" class="border border-primary rounded"><br>
+
+              <label for="habitat_id">ID Habitat:</label>
+              <input type="number" id="habitat_id" name="habitat_id" required class="border border-primary rounded"><br>
+
+              <label for="race_id">ID Race:</label>
+              <input type="number" id="race_id" name="race_id" required class="border border-primary rounded"><br>
+
+              <label for="image_data">Image:</label>
+              <input type="file" id="image_data" name="image_data" class="form-control" class="border border-primary rounded"><br>
+
+              <label for="created_at">Date de Création:</label>
+              <input type="date" id="created_at" name="created_at" class="border border-primary rounded"><br>
+
+              <label for="feeding_time">Heure du Repas:</label>
+              <input type="time" id="feeding_time" name="feeding_time" class="border border-primary rounded"><br><br>
+
+              <button type="button" onclick="submitAnimal()" class="btn btn-primary">Ajouter l'Animal</button>
+          </form>
+
+          <div id="responseMessage"></div>

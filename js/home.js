@@ -93,17 +93,16 @@ async function VoirAvis() {
       result.forEach(item => {
           if (item.isVisible === true) {
               content += `
-              <ol class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-start text-dark">
-                      <div class="ms-2 me-auto">
-                          <div class="fw-bold">${item.pseudo}</div>
-                          ${item.commentaire}
-                      </div>
+                      <ol class="list-group">
+      <li class="list-group-item justify-content-between align-items-start text-dark m-2 border border-primary">
+          <div class="ms-2 p-2">
+              <div class="fw-bold">${item.pseudo}</div>
+             <p> ${item.commentaire}</p>
+          </div>
                   </li>
               </ol>`;
           }
-      });
-
+      });     
       avis.innerHTML = content;
   } catch (error) {
       console.error('Error:', error);

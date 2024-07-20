@@ -1,33 +1,97 @@
-<div class="d-flex justify-content-center row row-cols-lg-5">
+
+
+
+
+<div class="d-flex justify-content-center row row-cols-lg-7 container-fluid">
+
 
      <!--Accordéon pour afficher le tableau de bord (rapport vétérianire)-->
-<p class="col-12">
-  <button class="btn btn-primary ms-5 mt-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+<p class="accordion-header col-12 ">
+  <button class="btn btn-primary collapsed m-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
     Afficher les comptes rendus
-  </button>
-</p>
+  </button></p>
 
    <!--Accordéon pour l'ouverture des habitats-->
 <p class="accordion-header col-12" id="flush-headingHabitat">
-  <button class="btn btn-primary collapsed m-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHabitat" aria-expanded="false" aria-controls="flush-collapseHabitat">
+  <button class="btn btn-primary collapsed m-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHabitat" aria-expanded="false" aria-controls="flush-collapseHabitat">
    Afficher les habitats</button></p>
+
+<!--Accordéon pour l'ouverture des animaux-->
+<p class="accordion-header col-12" id="flush-headingAnimal">
+  <button class="btn btn-primary collapsed m-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAnimal" aria-expanded="false" aria-controls="flush-collapseAnimal">
+   Afficher les animaux</button></p>
 
 
    <!--Accordéon pour Inscrire un nouvel utilisateur-->
 <p class="accordion-header col-12" id="flush-headingUser">
-  <button class="btn btn-primary collapsed m-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseUser" aria-expanded="false" aria-controls="flush-collapseUser">
+  <button class="btn btn-primary collapsed m-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseUser" aria-expanded="false" aria-controls="flush-collapseUser">
   Inscrire un nouvel utilisateur</button></p>
 
 <!--Accordéon pour l'ouverture des Horaires-->
   <p class="accordion-header col-12" id="flush-headingHoraire">
-    <button class="btn btn-primary collapsed m-5  " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHoraire" aria-expanded="false" aria-controls="flush-collapseHoraire">
+    <button class="btn btn-primary collapsed m-2  " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHoraire" aria-expanded="false" aria-controls="flush-collapseHoraire">
      Afficher les horaires</button></p>
 
 <!--Accordéon pour l'ouverture des Services-->
-<p class="accordion-header col-12" id="flush-headingAvis">
-  <button class="btn btn-primary collapsed m-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseServices" aria-expanded="false" aria-controls="flush-collapseServices">
+<p class="accordion-header col-12" id="flush-headingServices">
+  <button class="btn btn-primary collapsed m-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseServices" aria-expanded="false" aria-controls="flush-collapseServices">
    Afficher les services</button></p>
   </div>
+
+    
+
+  <!--Voir les animaux, ajouter, supprimer et modifier-->
+  <div id="flush-collapseAnimal" class="accordion-collapse collapse container" aria-labelledby="flush-headingAnimal" data-bs-parent="#accordionFlushExample">
+    <div class="accordion-body">
+      <div class="d-flex flex-column">
+      </div>  
+<div class="text-dark text-center">
+<h3>Liste des Animaux</h3>
+  <select id="prenomFilter" onchange="VoirAnimal()" class="border-primary rounded">
+    <option value="" >Sélectionnez un prénom</option>
+  </select>
+  <div id="Animal"></div>
+    <div class="container text-dark text-center ">
+        <h3>Ajouter un Nouvel Animal</h3>
+            <form id="animalForm" class="d-flex flex-column align-items-center border border-primary fw-bold rounded">
+                <label for="prenom">Prénom:</label>
+                <input type="text" id="prenom" name="prenom" required class="border border-primary rounded"><br>
+
+                <label for="etat">État:</label>
+                <input type="text" id="etat" name="etat"><br>
+
+                <label for="nourriture">Nourriture:</label>
+                <input type="text" id="nourriture" name="nourriture" class="border border-primary rounded"><br>
+
+                <label for="grammage">Grammage:</label>
+                <input type="text" id="grammage" name="grammage" class="border border-primary rounded"><br>
+
+                <label for="habitat_id">ID Habitat:</label>
+                <input type="number" id="habitat_id" name="habitat_id" required class="border border-primary rounded"><br>
+
+                <label for="race_id">ID Race:</label>
+                <input type="number" id="race_id" name="race_id" required class="border border-primary rounded"><br>
+              <div class="container">
+                <label for="image_data">Image:</label>
+                <input type="file" id="image_data" name="image_data" class="form-control" class="border border-primary rounded"><br>
+              </div>
+                <label for="created_at">Date du dernier repas:</label>
+                <input type="date" id="created_at" name="created_at" class="border border-primary rounded px-3"><br>
+
+                <label for="feeding_time">Heure du dernier Repas:</label>
+                <input type="time" id="feeding_time" name="feeding_time" class="border border-primary rounded px-3"><br><br>
+
+                <button type="button" onclick="submitAnimal()" class="btn btn-primary my-3">Ajouter l'Animal</button>
+            </form>
+
+    <div id="responseMessage"></div>
+  </div>
+</div>
+</div>
+
+
+
+
 
 <!--Voir l'ensemble des comptes rendus + 2 filtres-->
 <div class="container-fluid">
@@ -43,45 +107,62 @@
 
       <button id="filterButton" class="btn btn-primary ms-4">Filtrer</button>
 
-      <div id="rapport" ></div>
-</div>
-
+      <div id="rapport"></div>
     </div>
-      <hr>
   </div>
 </div>
+  <hr>
 </div>
+</div>
+
 
 
     <!--Formulaire pour inscrire un nouvel utilisateur-->
   <div class="d-flex flex-column ">
   <div id="flush-collapseUser" class="accordion-collapse collapse" aria-labelledby="flush-headingUser" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
-        <form class="text-dark fs-4 contour form-control container" id="formulaireInscription">
-          <div class="container text-center">
-            
-              <label for="PrenomInput" class="form-label m-3">Votre prénom</label>
-              <input type="text" class="form-control" id="PrenomInput" placeholder="John" name="prenom">
+        <form class="container text-dark fs-4" id="formulaireInscription">
+          <div class="m-5">
+            <!-- Inscription prénom -->
+            <label for="PrenomInput" class="form-label">Votre prénom</label>
+            <input type="text" class="form-control" id="PrenomInput" placeholder="John" name="prenom">
+          </div>
         
+          <div class="m-5">
+            <!-- Inscription nom -->
+            <label for="NomInput" class="form-label">Votre nom</label>
+            <input type="text" class="form-control" id="NomInput" placeholder="Doe" name="nom">
+          </div>
         
-              <label for="NomInput" class="form-label m-3" >Votre nom</label>
-              <input type="text" class="form-control" id="NomInput" placeholder="Doe" name="nom">
-        
-        
-              <label for="EmailInput" class="form-label m-3">Adresse mail</label>
-              <input type="email" class="form-control" id="EmailInput" value="zoo@arcadia.com" name="email">
-
+          <div class="m-5">
+            <!-- Adresse mail -->
+            <label for="EmailInput" class="form-label">Adresse mail</label>
+            <input type="email" class="form-control" id="EmailInput" value="zoo@arcadia.com" name="email">
             <div class="invalid-feedback">Le mail ne fonctionne pas</div>
-         
-    
-            <label for="PasswordInput" class="form-label m-3">Mot de passe</label>
+          </div>
+        
+          <div class="m-5">
+            <!-- Mot de passe -->
+            <label for="PasswordInput" class="form-label">Mot de passe</label>
             <input type="password" class="form-control" id="PasswordInput" value="Azerty12!" name="password">
-
-            <!-- Permet de rajouter un texte tant que les conditions du Regex ne sont pas bonne-->
             <div class="invalid-feedback">Mot de passe non robuste</div>
-            <button type="button" class="btn btn-primary my-5" id="btnInscription">Inscription</button>
-            </div>
-         </form>        
+          </div>
+        
+          <div class="m-5">
+            <!-- Rôle -->
+            <label for="RoleInput" class="form-label">Rôle</label>
+            <select class="form-control" id="RoleInput" name="role">
+                <option value="">Sélectionnez un rôle</option>
+                <option value="employe">Employé</option>
+                <option value="veterinaire">Vétérinaire</option>
+            </select>
+            <div class="invalid-feedback">Veuillez sélectionner un rôle.</div>
+        </div>
+        
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary ms-5 mb-5" id="btnInscription" disabled>Inscription</button>
+          </div>
+        </form>
          <hr>
     </div>
   </div>
@@ -90,7 +171,7 @@
 
 
 <!-- Modifications des horaires d'ouverture -->
-<div class="container my-3">
+<div class="container my-3 text-center text-dark">
   <div id="flush-collapseHoraire" class="accordion-collapse collapse" aria-labelledby="flush-headingHoraire">
     <div class="accordion-body">
       <form id="formulaireHoraire">
@@ -124,57 +205,60 @@
 
 
 
-    <div id="flush-collapseServices" class="accordion-collapse collapse container mt-3" aria-labelledby="flush-headingServices" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">
 
 
-              <div class="row row-cols-lg-3 border rounded d-flex align-items-end">
-                <!--1er Image-->
-                        <div class="col">
-                          <div > <img class="img-thumbnail" src="/images/visiteGuide.jpg" alt="" ></div>
-                          <div id="service4" class="d-flex justify-content-around"></div>      
-                        </div>
-                <!--2éme Image-->
-                        <div  class="col">
-                          <div ><img class="img-thumbnail" src="/images/restauration.jpg" alt="" ></div>
-                          <div id="service5" class="d-flex justify-content-around"></div>
-                        </div>
-                <!--3éme Image-->
-                        <div class="col">
-                          <div ><img class="img-thumbnail" src="/images/train.jpg" alt="" ></div>
-                          <div id="service6" class="d-flex justify-content-around"></div>      
-                        </div>
-                </div>
-                <hr></div>   
-      </div>   
+<div id="flush-collapseServices" class="accordion-collapse collapse container mt-3" aria-labelledby="flush-headingServices" data-bs-parent="#accordionFlushExample">
+  <div class="accordion-body">
+      <div id="services-container" class="row row-cols-1 row-cols-lg-3 text-dark text-center">
 
-        
+  </div>  
+  <div class="text-center text-dark pt-5 m-3 border border-primary rounded">
+    <h2>Créer un nouveau service</h2>
+      <form id="createServiceForm" class="create-service-form">
+          <div class="form-group">
+              <label for="newServiceTitle">Titre:</label>
+              <input type="text" id="newServiceTitle" name="titre" class="form-control" required>
+          </div>
+          <div class="form-group">
+              <label for="newServiceDescription">Commentaire:</label>
+              <textarea id="newServiceDescription" name="commentaire" class="form-control" rows="5" required></textarea>
+          </div>
+          <button type="button" class="btn btn-primary my-3" onclick="creerUnService()">Créer</button>
+      </form>
+  </div>   
+    <div id="create-service-container" class="text-center text-dark pt-5 "></div>     
+    
+</div>    
+</div>
 
-
-
-
-
+                      
  <!--Formulaire voir et modifier les habitats-->
 
-            <div id="flush-collapseHabitat" class="accordion-collapse collapse container" aria-labelledby="flush-headingHabitat" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body ">
+ <div id="flush-collapseHabitat" class="accordion-collapse collapse container" aria-labelledby="flush-headingHabitat" data-bs-parent="#accordionFlushExample">
+  <div class="accordion-body ">
+        <div class="row row-cols-lg-3 border rounded d-flex align-items-end"> 
 
-                    <div class="row row-cols-lg-3 border rounded d-flex align-items-end"> 
-    <!-- Habitat savane-->
-                      <div class="col">
-                        <div> <img class="img-thumbnail" src="/images/Savane_africaine.jpg" alt="" ></div>
-                        <div id="habitat1" class="d-flex justify-content-around"></div>      
-                      </div>
-    <!-- Habitat marais-->
-                      <div class="col">
-                        <div> <img class="img-thumbnail" src="/images/marais.jpg" alt="" ></div>
-                        <div id="habitat2" class="d-flex justify-content-around"></div>      
-                      </div>
-    <!-- Habitat jungle-->
-                      <div class="col">
-                        <div> <img class="img-thumbnail" src="/images/jungle.jpg" alt="" ></div>
-                        <div id="habitat3" class="d-flex justify-content-around"></div>      
-                      </div>
-                    </div> 
-              <div>    
-           </div>
+<!-- Habitat savane-->
+          <div class="col">
+            <div> <img class="img-thumbnail" src="/images/Savane_africaine.jpg" alt="" ></div>
+            <div id="habitat1" class="d-flex justify-content-around"></div>      
+          </div>
+<!-- Habitat marais-->
+          <div class="col">
+            <div> <img class="img-thumbnail" src="/images/marais.jpg" alt="" ></div>
+            <div id="habitat2" class="d-flex justify-content-around"></div>      
+          </div>
+<!-- Habitat jungle-->
+          <div class="col">
+            <div> <img class="img-thumbnail" src="/images/jungle.jpg" alt=""></div>
+            <div id="habitat3" class="d-flex justify-content-around"></div>      
+          </div>
+        </div> 
+      </div> 
+    </div> 
+
+
+
+
+
+

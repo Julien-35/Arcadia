@@ -1,40 +1,26 @@
-// création d'une varialbe tokenCookie car elle sera appelé plusieurs fois 
+// Création des variables pour les cookies
 const tokenCookieName = "accestoken";
-//Création de ma variable pour la partie deconnexion depuis l'ID de mon index.html.
+const roleCookieName = "role";
+
+// Création de la variable pour le bouton de déconnexion
 const btnSignout = document.getElementById("btnSignout");
-// création de la variable roleCookieName car le nom role est utilisé plusieurs fois.
-const roleCookieName = "role"
 
-// création de l'évenement du bouton Deconnexion. Au click - le nom 
-
+// Création de l'événement pour le bouton de déconnexion
 btnSignout.addEventListener("click", deconnexion);
 
-
-  
-
-//création de la fonction qui prend le nom de l'évenement ci-dessus 'deconnexion' permettant de supprimer les cookies
+// Fonction pour la déconnexion
 function deconnexion() {
     eraseCookie(tokenCookieName);
     eraseCookie(roleCookieName);
-    window.location.reload();
+    localStorage.removeItem('apiToken');
+    localStorage.removeItem('userRole');
+    window.location.reload(); 
 }
 
-// fonction setToken pour donner le nombre de jour valide du cookie et le nom qu'on lui a donné en variable. 
-function setToken (token) {
-    // nom varible + argument de ma fonction + nbre de jour
-    setCookie (tokenCookieName, token, 7)
-}
 
-// Fonction pour obtenir le rôle de l'utilisateur
-const getRole = () => {
-    // Implémentez la logique pour obtenir le rôle de l'utilisateur
-    // Par exemple, récupérer le rôle à partir d'un token ou d'une session
-    return sessionStorage.getItem("userRole") || "disconnected";
-  };
-  
-function getToken () {
-    return getCookie (tokenCookieName);
-}
+document.getElementById('btnSignout').addEventListener('click', () => {
+    deconnexion();
+});
 
 // Fonction pour définir un cookie
 function setCookie(name, value, days) {
@@ -58,27 +44,25 @@ function getCookie(name) {
     return null;
 }
 
+// Fonction pour effacer un cookie
 function eraseCookie(name) {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-// Fonction pour vérifier la connexion de l'utilisateur
+// Fonction pour obtenir les rôles de l'utilisateur
+const getRoles = () => {
+    return sessionStorage.getItem("userRole") || "disconnected";
+};
+
+// Fonction pour vérifier si l'utilisateur est connecté
 const isConnected = () => {
     return getCookie(tokenCookieName) !== null;
 };
 
-// permet de tester si mon cookie fonctionne en affichant des alertes 
-/*if(isConnected()) {
-    alert ("je suis connecté");
-} else {
-    alert("je ne suis pas connecté");
-}*/
-
 // Fonction pour afficher ou masquer les éléments en fonction du rôle
 function showAndHideElementsForRoles() {
-    const userConnected = isConnected();
-    const role = getRole();
-
+    const userConnected = localStorage.getItem('apiToken') !== null;
+    const userRole = localStorage.getItem('userRole');
     document.querySelectorAll('[data-show]').forEach(element => {
         const showRole = element.dataset.show;
         let shouldShow = false;
@@ -91,30 +75,28 @@ function showAndHideElementsForRoles() {
                 shouldShow = userConnected;
                 break;
             case 'admin':
-                shouldShow = userConnected && role === "ROLE_ADMIN";
+                shouldShow = userRole === 'ROLE_ADMIN';
                 break;
             case 'employe':
-                shouldShow = userConnected && role === "ROLE_EMPLOYE";
+                shouldShow = userRole === 'ROLE_EMPLOYE';
                 break;
             case 'veterinaire':
-                shouldShow = userConnected && role === "ROLE_VETERINAIRE";
+                shouldShow = userRole === 'ROLE_VETERINAIRE';
                 break;
         }
-
+        
         element.classList.toggle("d-none", !shouldShow);
     });
 }
-// Appeler la fonction pour mettre à jour l'affichage des éléments selon le rôle de l'utilisateur
 
-
-// Consolidation de l'événement DOMContentLoaded
+// Appeler la fonction lors du chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
     showAndHideElementsForRoles();
+});
 
-  });
-  
 
-  async function login(email, password) {
+// Fonction pour se connecter (exemple)
+async function login(email, password) {
     const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -124,11 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const data = await response.json();
-
     if (response.ok) {
-        setCookie(tokenCookieName, data.apiToken, 7);
-        setCookie(roleCookieName, data.roles[0], 7); // Assume the first role is the main role
-        window.location.href = '/'; // Redirect after successful login
+        localStorage.setItem('apiToken', data.apiToken);
+        localStorage.setItem('userRole', data.roles[0]); 
+        window.location.href = '/'; 
     } else {
         alert(data.message);
     }

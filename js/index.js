@@ -6,7 +6,7 @@ if (document.readyState === "loading") {
 async function VoirDate(){
 
     const myHeaders = new Headers();
-    myHeaders.append("X-AUTH-TOKEN", "4d07cfe5e600bc0b9d978d209bb42ab8c05b9fc5");
+    myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
     myHeaders.append("Content-Type", "application/json");
 
     const requestOptions = {
@@ -17,7 +17,7 @@ async function VoirDate(){
 
     };
     
-   await fetch("http://127.0.0.1:8000/api/horaire/get", requestOptions)
+   await fetch("http://127.0.0.1:8000/api/horaires/get", requestOptions)
    .then((response) => {
     if  (response.ok === true){
       return response.json()
