@@ -3,10 +3,13 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'build')));
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// For all GET requests, send back index.html
+// so that PathLocationStrategy can be used
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
