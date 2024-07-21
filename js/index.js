@@ -1,4 +1,3 @@
-alert("test")
 const SeeDates = document.getElementById("date");
 
 if (document.readyState === "loading") {
