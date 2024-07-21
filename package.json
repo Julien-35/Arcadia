@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "Arcadia Front-End Project",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "build": "parcel build index.html" 
-  },
+ "scripts": {
+  "start": "node index.js"
+},
   "dependencies": {
     "express": "^4.17.1",
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4" 
+    "@parcel/transformer-sass": "^2.12.0",
+    "parcel": "^2.12.0",
+    "parcel-bundler": "^1.12.4"
   }
 }
