@@ -127,7 +127,7 @@ async function createService(titre, commentaire) {
   };
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/service/post`, requestOptions);
+    const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/service/post`, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -144,7 +144,7 @@ async function voirService() {
   myHeaders.append("X-AUTH-TOKEN", "38f1c426526d1aeebb80d777b8733f1ef09fc484");
 
   try {
-    const items = await fetchData("http://127.0.0.1:8000/api/service/get", myHeaders);
+    const items = await fetchData("https://arcadia-back-26b810fabe9f.herokuapp.com/api/service/get", myHeaders);
     const servicesContainer = document.getElementById("services-container");
     servicesContainer.innerHTML = ''; 
     
@@ -191,7 +191,7 @@ async function deleteService(serviceId) {
   };
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/service/${serviceId}`, requestOptions);
+    const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/service/${serviceId}`, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -244,7 +244,7 @@ async function submitServiceUpdate(serviceId, formNumber) {
     };
   
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/service/${serviceId}`, requestOptions);
+      const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/service/${serviceId}`, requestOptions);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -303,7 +303,7 @@ async function ModifierServices(serviceId, titre, commentaire) {
   };
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/service/${serviceId}`, requestOptions);
+    const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/service/${serviceId}`, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -337,7 +337,7 @@ async function voirRapport(date = "", prenom = "") {
   };
 
   try {
-      const response = await fetch("http://127.0.0.1:8000/api/rapportveterinaire/get", requestOptions);
+      const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/rapportveterinaire/get", requestOptions);
       if (!response.ok) {
           console.log("Impossible de récupérer les rapports");
           return;
@@ -395,7 +395,7 @@ async function fetchAndPopulatePrenomFilter() {
   };
 
   try {
-      const response = await fetch("http://127.0.0.1:8000/api/rapportveterinaire/get", requestOptions);
+      const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/rapportveterinaire/get", requestOptions);
       if (!response.ok) {
           console.log("Impossible de récupérer les rapports");
           return;
@@ -460,7 +460,7 @@ async function voirHabitat() {
   };
 
   try {
-      const response = await fetch("http://127.0.0.1:8000/api/habitat/get", requestOptions);
+      const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/habitat/get", requestOptions);
       if (!response.ok) {
           throw new Error("Impossible de récupérer les informations utilisateur");
       }
@@ -542,7 +542,7 @@ async function ModifierHabitat(habitatId, nom, description) {
   };
 
   try {
-      const response = await fetch(`http://127.0.0.1:8000/api/habitat/${habitatId}`, requestOptions);
+      const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/habitat/${habitatId}`, requestOptions);
       if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -671,7 +671,7 @@ function InscrireUtilisateur(event) {
         redirect: "follow"
     };
 
-    fetch("http://127.0.0.1:8000/api/registration", requestOptions)
+    fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/registration", requestOptions)
         .then(response => {
             if (!response.ok) {
                 return response.text().then(errorText => {
@@ -746,7 +746,7 @@ async function VoirAnimal() {
   // myHeaders.append("X-AUTH-TOKEN", getToken());
 
   try {
-    const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
+    const result = await fetchData("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/get", myHeaders);
     updateAnimalContent(result, prenomFilter);
   } catch (error) {
     console.error(error);
@@ -838,7 +838,7 @@ async function fetchAndPopulatePrenomFilter() {
   // myHeaders.append("X-AUTH-TOKEN", getToken());
 
   try {
-    const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
+    const result = await fetchData("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/get", myHeaders);
     updatePrenomFilter(result);
   } catch (error) {
     console.error(error);
@@ -887,7 +887,7 @@ async function submitAnimal() {
           };
 
           try {
-              const response = await fetch("http://127.0.0.1:8000/api/animal/post", {
+              const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/post", {
                   method: "POST",
                   headers: {
                       "Content-Type": "application/json"
@@ -922,7 +922,7 @@ async function submitAnimal() {
       };
 
       try {
-          const response = await fetch("http://127.0.0.1:8000/api/animal/post", {
+          const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/post", {
               method: "POST",
               headers: {
                   "Content-Type": "application/json"
@@ -962,7 +962,7 @@ async function deleteAnimal(animalId) {
   };
 
   try {
-      const response = await fetch(`http://127.0.0.1:8000/api/animal/${animalId}`, requestOptions);
+      const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/${animalId}`, requestOptions);
       if (response.ok) {
           alert("Animal supprimé avec succès.");
           VoirAnimal(); // Recharger les animaux après suppression
@@ -983,7 +983,7 @@ async function fetchHabitats() {
   myHeaders.append("Content-Type", "application/json");
 
   try {
-      const response = await fetch("http://127.0.0.1:8000/api/habitat/get", {
+      const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/habitat/get", {
           method: "GET",
           headers: myHeaders,
       });

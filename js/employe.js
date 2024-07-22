@@ -73,7 +73,7 @@ async function voirAvis() {
   };
 
   try {
-      const response = await fetch("http://127.0.0.1:8000/api/avis/get", requestOptions);
+      const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/avis/get", requestOptions);
       if (!response.ok) throw new Error('Failed to fetch avis');
       
       const result = await response.json();
@@ -112,7 +112,7 @@ async function voirAvis() {
                       body: JSON.stringify({ isVisible: newValue })
                   };
 
-                  const response = await fetch(`http://127.0.0.1:8000/api/avis/${avisId}`, putRequestOptions);
+                  const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/avis/${avisId}`, putRequestOptions);
                   if (!response.ok) throw new Error(`Failed to toggle visibility for avis ${avisId}`);
 
                   button.setAttribute('data-avis-visible', newValue);
@@ -143,7 +143,7 @@ async function voirService() {
   };
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/service/get", requestOptions);
+    const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/service/get", requestOptions);
     if (!response.ok) {
       throw new Error("Impossible de récupérer les informations utilisateur");
     }
@@ -224,7 +224,7 @@ async function ModifierServices(serviceId, titre, commentaire) {
   };
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/service/${serviceId}`, requestOptions);
+    const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/service/${serviceId}`, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -282,7 +282,7 @@ async function ModifierServices(serviceId, titre, commentaire) {
   };
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/service/${serviceId}`, requestOptions);
+    const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/service/${serviceId}`, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -335,7 +335,7 @@ async function ModifierServices(serviceId, titre, commentaire) {
     myHeaders.append("X-AUTH-TOKEN", getToken());
   
     try {
-      const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
+      const result = await fetchData("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/get", myHeaders);
       updateAnimalContent(result, prenomFilter);
     } catch (error) {
       console.error(error);
@@ -363,7 +363,7 @@ async function ModifierServices(serviceId, titre, commentaire) {
     myHeaders.append("X-AUTH-TOKEN", getToken());
   
     try {
-      const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
+      const result = await fetchData("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/get", myHeaders);
       updatePrenomFilter(result);
     } catch (error) {
       console.error(error);
@@ -378,7 +378,7 @@ async function ModifierServices(serviceId, titre, commentaire) {
   
     
   async function updateAnimal(animalId, updatedData) {
-    const url = `http://127.0.0.1:8000/api/animal/${animalId}`;
+    const url = `https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/${animalId}`;
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("X-AUTH-TOKEN", getToken());

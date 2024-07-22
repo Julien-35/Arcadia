@@ -135,7 +135,7 @@ document.getElementById('avisForm').addEventListener('submit', async function(ev
   };
 
   try {
-      const response = await fetch("http://127.0.0.1:8000/api/avis/post", requestOptions);
+      const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/avis/post", requestOptions);
       if (!response.ok) {
           throw new Error('Failed to send avis');
       }

@@ -34,7 +34,7 @@ if (document.readyState === "loading") {
     // myHeaders.append("X-AUTH-TOKEN", getToken());
   
     try {
-      const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
+      const result = await fetchData("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/get", myHeaders);
       updateAnimalContent(result, prenomFilter);
     } catch (error) {
       console.error(error);
@@ -126,7 +126,7 @@ if (document.readyState === "loading") {
     // myHeaders.append("X-AUTH-TOKEN", getToken());
   
     try {
-      const result = await fetchData("http://127.0.0.1:8000/api/animal/get", myHeaders);
+      const result = await fetchData("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/get", myHeaders);
       updatePrenomFilter(result);
     } catch (error) {
       console.error(error);
@@ -175,7 +175,7 @@ if (document.readyState === "loading") {
             };
 
             try {
-                const response = await fetch("http://127.0.0.1:8000/api/animal/post", {
+                const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/post", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -210,7 +210,7 @@ if (document.readyState === "loading") {
         };
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/api/animal/post", {
+            const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/post", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -250,7 +250,7 @@ async function deleteAnimal(animalId) {
     };
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/api/animal/${animalId}`, requestOptions);
+        const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/${animalId}`, requestOptions);
         if (response.ok) {
             alert("Animal supprimé avec succès.");
             VoirAnimal(); // Recharger les animaux après suppression
@@ -271,7 +271,7 @@ async function fetchHabitats() {
     myHeaders.append("Content-Type", "application/json");
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/api/habitat/get", {
+        const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/habitat/get", {
             method: "GET",
             headers: myHeaders,
         });
