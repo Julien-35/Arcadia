@@ -1,7 +1,6 @@
 const SeeDates = document.getElementById("date");
 
 if (document.readyState !== "loading") {
-  console.log("là")
   VoirDate();
 }
 
