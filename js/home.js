@@ -27,6 +27,12 @@ if (document.readyState === "loading") {
     voirService();
   }
 
+
+  function getToken() {
+    return localStorage.getItem('apiToken');
+  }
+
+
 async function voirService(){
 
     const myHeaders = new Headers();
@@ -124,6 +130,7 @@ document.getElementById('avisForm').addEventListener('submit', async function(ev
   };
 
   const myHeaders = new Headers();
+  myHeaders.append("X-AUTH-TOKEN", getToken());
   myHeaders.append("Content-Type", "application/json");
 
   const requestOptions = {
