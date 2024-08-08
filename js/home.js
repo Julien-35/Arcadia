@@ -122,32 +122,30 @@ document.getElementById('avisForm').addEventListener('submit', async function(ev
   const commentaire = document.getElementById('commentaire').value;
 
   const avisData = {
-      pseudo: pseudo,
-      commentaire: commentaire,
-      isVisible: false  // Par défaut, l'avis n'est pas visible jusqu'à validation
-  };
+    pseudo: pseudo,
+    commentaire: commentaire,
+    is_visible: false  
+};
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
   const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(avisData),
-      redirect: "follow",
+    method: "POST",  
+    headers: myHeaders,
+    body: JSON.stringify(avisData),
+    redirect: "follow",
   };
 
   try {
-      const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/avis/post", requestOptions);
-      if (!response.ok) {
-          throw new Error('Failed to send avis');
-      }
-
-      const myModal = new bootstrap.Modal(document.getElementById('MessageAvis'));
-      myModal.show();
-
+    const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/avis/post", requestOptions);
+    if (!response.ok) {
+      throw new Error('Failed to send avis');
+    }
+    const myModal = new bootstrap.Modal(document.getElementById('MessageAvis'));
+    myModal.show();
   } catch (error) {
-      console.error('Error:', error);
-      alert("Impossible d'envoyer l'avis. Veuillez réessayer plus tard.");
+    console.error('Error:', error);
+    alert("Impossible d'envoyer l'avis. Veuillez réessayer plus tard.");
   }
 });
