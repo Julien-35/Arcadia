@@ -41,7 +41,7 @@ if (document.readyState === "loading") {
             const serviceElement = document.createElement('div');
 
             serviceElement.innerHTML = `
-                    <div class="d-flex flex-column m-2">
+                    <div class="border border-primary rounded">
                         <h2 class="mb-4 col">${item.nom}</h2>
                         <p>${item.description}</p>
                     </div>
