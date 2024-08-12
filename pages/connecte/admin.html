@@ -57,7 +57,7 @@
                 <input type="text" id="prenom" name="prenom" required class="border border-primary rounded"><br>
 
                 <label for="etat">État:</label>
-                <input type="text" id="etat" name="etat"><br>
+                <input type="text" id="etat" name="etat" required class="border border-primary rounded"><br>
 
                 <label for="nourriture">Nourriture:</label>
                 <input type="text" id="nourriture" name="nourriture" class="border border-primary rounded"><br>
@@ -65,8 +65,12 @@
                 <label for="grammage">Grammage:</label>
                 <input type="text" id="grammage" name="grammage" class="border border-primary rounded"><br>
 
-                <label for="habitat_id">ID Habitat:</label>
-                <input type="number" id="habitat_id" name="habitat_id" required class="border border-primary rounded"><br>
+                <label for="habitat">Habitat:</label>
+                <select id="habitat" name="habitat" required class="border border-primary rounded">
+                    <option value="1">La Savane</option>
+                    <option value="2">Les Marais</option>
+                    <option value="3">La Jungle</option>
+                </select><br>
 
                 <label for="race_id">ID Race:</label>
                 <input type="number" id="race_id" name="race_id" required class="border border-primary rounded"><br>

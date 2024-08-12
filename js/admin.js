@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
   chargerHoraires();
   voirService();
   voirHabitat();
+  voirRapport();
+  seeRapport();
+
 });
 
 function getToken() {
@@ -418,13 +421,12 @@ function updatePrenomFilter(prénoms) {
   // Cette fonction n'est plus nécessaire si on remplace le champ de sélection par un champ de saisie
 }
 
-const seeRapport = document.getElementById("rapport");
 
 // Ajouter un écouteur d'événements pour filtrer les rapports par date ou prénom
 document.getElementById("filterButton").addEventListener("click", () => {
   const date = document.getElementById("dateFilter").value;
   const prenom = document.getElementById("prenomFilter").value;
-  voirRapport(date, prenom); // Appeler voirRapport avec les critères sélectionnés
+  voirRapport(date, prenom); 
 });
 
 // Charger les options des prénoms au chargement de la page
@@ -859,7 +861,7 @@ async function submitAnimal() {
   const nourriture = document.getElementById('nourriture').value;
   const grammage = document.getElementById('grammage').value;
   const habitatSelect = document.getElementById('habitat');
-  const habitat_id = habitatSelect.value; // Utilisez l'ID sélectionné
+  const habitat_id = habitatSelect.value; 
   const race_id = document.getElementById('race_id').value;
   const created_at = document.getElementById('created_at').value;
   const feeding_time = document.getElementById('feeding_time').value;
@@ -867,84 +869,61 @@ async function submitAnimal() {
   const fileInput = document.getElementById('image_data');
   let image_data = '';
 
-  if (fileInput.files.length > 0) {
-      const file = fileInput.files[0];
+  // Fonction pour lire le fichier image en base64
+  const readFileAsBase64 = (file) => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
 
-      reader.onloadend = async () => {
-          image_data = reader.result.split(',')[1]; // Extraire la partie base64
+  // Vérifiez si un fichier a été sélectionné
+  if (fileInput.files.length > 0) {
+    try {
+      image_data = await readFileAsBase64(fileInput.files[0]);
+    } catch (error) {
+      console.error('Erreur lors de la lecture de l\'image:', error);
+      document.getElementById('responseMessage').innerText = 'Erreur lors de la lecture de l\'image.';
+      return; // Interrompre l'exécution si l'image ne peut pas être lue
+    }
+  }
 
-          const data = {
-              prenom: prenom,
-              etat: etat,
-              nourriture: nourriture,
-              grammage: grammage,
-              habitat_id: parseInt(habitat_id),
-              race_id: parseInt(race_id),
-              image_data: image_data,
-              created_at: created_at,
-              feeding_time: feeding_time
-          };
+  // Préparer les données à envoyer
+  const data = {
+    prenom: prenom,
+    etat: etat,
+    nourriture: nourriture,
+    grammage: grammage,
+    habitat_id: parseInt(habitat_id),
+    race_id: parseInt(race_id),
+    image_data: image_data, 
+    created_at: created_at,
+    feeding_time: feeding_time
+  };
 
-          try {
-              const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/post", {
-                  method: "POST",
-                  headers: {
-                      "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify(data)
-              });
+  try {
+    const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
 
-              if (response.ok) {
-                  const result = await response.json();
-                  document.getElementById('responseMessage').innerText = "Animal ajouté avec succès!";
-              } else {
-                  const error = await response.json();
-                  document.getElementById('responseMessage').innerText = `Erreur: ${error.error}`;
-              }
-          } catch (error) {
-              console.error('Erreur:', error);
-              document.getElementById('responseMessage').innerText = `Erreur: ${error.message}`;
-          }
-      };
-
-      reader.readAsDataURL(file); // Lire le fichier comme URL de données
-  } else {
-      const data = {
-          prenom: prenom,
-          etat: etat,
-          nourriture: nourriture,
-          grammage: grammage,
-          habitat_id: parseInt(habitat_id),
-          race_id: parseInt(race_id),
-          created_at: created_at,
-          feeding_time: feeding_time
-      };
-
-      try {
-          const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/post", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify(data)
-          });
-
-          if (response.ok) {
-              const result = await response.json();
-              document.getElementById('responseMessage').innerText = "Animal ajouté avec succès!";
-          } else {
-              const error = await response.json();
-              document.getElementById('responseMessage').innerText = `Erreur: ${error.error}`;
-          }
-      } catch (error) {
-          console.error('Erreur:', error);
-          document.getElementById('responseMessage').innerText = `Erreur: ${error.message}`;
-      }
+    if (response.ok) {
+      const result = await response.json();
+      document.getElementById('responseMessage').innerText = "Animal ajouté avec succès!";
+    } else {
+      const error = await response.json();
+      document.getElementById('responseMessage').innerText = `Erreur: ${error.error}`;
+    }
+  } catch (error) {
+    console.error('Erreur:', error);
+    document.getElementById('responseMessage').innerText = `Erreur: ${error.message}`;
   }
 }
-
-
 
 async function deleteAnimal(animalId) {
   if (!confirm("Êtes-vous sûr de vouloir supprimer cet animal ?")) {
