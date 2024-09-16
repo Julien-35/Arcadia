@@ -5,10 +5,7 @@ const Service3 = document.getElementById("service3");
 
 const avis = document.getElementById("VoirAvis");
 
-
-
 if (document.readyState === "loading") {
-  // Loading hasn't finished yet
   avis.addEventListener('DOMContentLoaded', VoirAvis);
 } else {
   VoirAvis();
@@ -45,7 +42,7 @@ async function voirService(){
 
     };
 
-  await  fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/service/get", requestOptions)
+  await  fetch("https://127.0.0.1:8000/api/service/get", requestOptions)
   .then((response) => {
     if  (response.ok === true){
       return response.json()
@@ -87,7 +84,7 @@ async function VoirAvis() {
   };
 
   try {
-      const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/avis/get", requestOptions);
+      const response = await fetch("https://127.0.0.1:8000/api/avis/get", requestOptions);
       if (!response.ok) {
           throw new Error('Failed to fetch avis');
       }
@@ -138,9 +135,9 @@ document.getElementById('avisForm').addEventListener('submit', async function(ev
   };
 
   try {
-    const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/avis/post", requestOptions);
+    const response = await fetch("https://127.0.0.1:8000/api/avis/post", requestOptions);
     if (!response.ok) {
-      throw new Error('Failed to send avis');
+      throw new Error("Echec pour envoyer l'avis");
     }
     const myModal = new bootstrap.Modal(document.getElementById('MessageAvis'));
     myModal.show();

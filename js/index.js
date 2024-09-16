@@ -16,7 +16,7 @@ async function VoirDate() {
   redirect: "follow",
   };
 
-  await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/horaires/get", requestOptions)
+  await fetch("https://127.0.0.1:8000/api/horaires/get", requestOptions)
   .then((response) => {
       if  (response.ok === true){
         return response.json()

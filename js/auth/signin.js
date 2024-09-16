@@ -63,7 +63,7 @@ async function ConnexionUtilisateur(event) {
     };
 
     try {
-        const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/login", {
+        const response = await fetch("https://127.0.0.1:8000/api/registration", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

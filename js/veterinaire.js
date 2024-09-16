@@ -42,7 +42,7 @@ async function VoirAnimal() {
   myHeaders.append("X-AUTH-TOKEN", getToken());
 
   try {
-    const result = await fetchData("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/get", myHeaders);
+    const result = await fetchData("https://127.0.0.1:8000/api/animal/get", myHeaders);
     updateAnimalContent(result, prenomFilter);
   } catch (error) {
     console.error('Error:', error);
@@ -73,7 +73,7 @@ async function fetchAndPopulatePrenomFilter() {
   myHeaders.append("X-AUTH-TOKEN", getToken());
 
   try {
-    const result = await fetchData("https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/get", myHeaders);
+    const result = await fetchData("https://127.0.0.1:8000/api/animal/get", myHeaders);
     updatePrenomFilter(result);
   } catch (error) {
     console.error('Error:', error);
@@ -88,7 +88,7 @@ if (document.readyState === "loading") {
 
   
 async function updateAnimal(animalId, updatedData) {
-  const url = `https://arcadia-back-26b810fabe9f.herokuapp.com/api/animal/${animalId}`;
+  const url = `https://127.0.0.1:8000/api/animal/${animalId}`;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("X-AUTH-TOKEN",  getToken());
@@ -265,7 +265,7 @@ async function voirHabitat() {
   };
 
   try {
-    const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/habitat/get", requestOptions);
+    const response = await fetch("https://127.0.0.1:8000/api/habitat/get", requestOptions);
     if (!response.ok) throw new Error("Impossible de récupérer les informations des habitats");
     
     const items = await response.json();
@@ -342,7 +342,7 @@ async function ModifierHabitat(habitatId, commentaireHabitat) {
   };
 
   try {
-    const response = await fetch(`https://arcadia-back-26b810fabe9f.herokuapp.com/api/habitat/${habitatId}`, requestOptions);
+    const response = await fetch(`https://127.0.0.1:8000/api/habitat/${habitatId}`, requestOptions);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
     const result = await response.json();
@@ -392,7 +392,7 @@ document.getElementById('rapportForm').addEventListener('submit', async function
 
   try {
       // Envoi de la requête
-      const response = await fetch("https://arcadia-back-26b810fabe9f.herokuapp.com/api/rapportveterinaire/post", requestOptions);
+      const response = await fetch("https://127.0.0.1:8000/api/rapportveterinaire/post", requestOptions);
 
       // Vérification de la réponse
       if (!response.ok) {
