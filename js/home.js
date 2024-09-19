@@ -84,7 +84,7 @@ async function VoirAvis() {
   };
 
   try {
-      const response = await fetch("https://arcadia35380-f680d3a74682.herokuapp.com/api/service/get", requestOptions);
+      const response = await fetch("https://127.0.0.1:8000/api/avis/get", requestOptions);
       if (!response.ok) {
           throw new Error('Failed to fetch avis');
       }
