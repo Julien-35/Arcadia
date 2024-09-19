@@ -21,7 +21,7 @@ Ce projet est le front-end du projet Arcadia utilisant **HTML**, **JavaScript**,
    Clonez ce dépôt sur votre machine locale.
 
    ```bash
-   git clone https://github.com/votre-utilisateur/votre-projet.git
+   git clone https://github.com/Julien-35/Arcadia
    cd votre-projet
 
 
