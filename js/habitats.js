@@ -105,7 +105,7 @@ async function voirHabitat() {
   });
 
   try {
-    const response = await fetch("https://127.0.0.1:8000/api/habitat/get", { method: "GET", headers: myHeaders, mode: "cors" });
+    const response = await fetch("https://arcadia35380-f680d3a74682.herokuapp.com/api/habitat/get", { method: "GET", headers: myHeaders, mode: "cors" });
     if (!response.ok) throw new Error("Impossible de récupérer les informations des habitats");
     
     const habitats = await response.json();
@@ -138,7 +138,7 @@ async function voirAnimal() {
   });
 
   try {
-    const response = await fetch("https://127.0.0.1:8000/api/animal/get", { method: "GET", headers: myHeaders, mode: "cors" });
+    const response = await fetch("https://arcadia35380-f680d3a74682.herokuapp.com/api/animal/get", { method: "GET", headers: myHeaders, mode: "cors" });
     if (!response.ok) throw new Error("Impossible de récupérer les informations des animaux");
     
     const animals = await response.json();
