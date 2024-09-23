@@ -34,12 +34,12 @@ const getRouteByUrl = (url) => {
   if (allRolesArray.length > 0) {
     if (allRolesArray.includes("disconnected")) {
       if (isConnected()) {
-        window.location.replace("/home");
+        window.location.replace("");
       }
     } else {
       const roleUser = getRoles();
       if (!allRolesArray.includes(localStorage.getItem("userRole"))) {
-        window.location.replace("/home");
+        window.location.replace("");
       }
     }
   }

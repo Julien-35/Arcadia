@@ -83,7 +83,7 @@ async function ConnexionUtilisateur(event) {
         localStorage.setItem('userRole', result.roles[0]); // Stocker le rôle utilisateur
 
         // Rediriger vers la page appropriée
-        window.location.href = '/home'; // Modifier cette ligne en fonction de votre logique de redirection
+        window.location.href = ''; // Modifier cette ligne en fonction de votre logique de redirection
 
     } catch (error) {
         console.error('Erreur:', error);
