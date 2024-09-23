@@ -30,7 +30,7 @@ async function VoirDate() {
       `
       <h3 class="fw-bold fs-4">${item.titre}</h3>
       <p class="fw-normal fs-4">${item.message}</p>
-      <p class="fw-normal fs-4" >${item.heureDebut} - ${item.heureFin}</p>
+      <p class="fw-normal fs-4" >${item.heure_debut} - ${item.heure_fin}</p>
       <p class="fw-normal fs-4" >${item.jour} </p>
       `
     })
